@@ -8,7 +8,8 @@ RUN_MODE = "multiProc" # singleProc, multiProc, cluster
 NUM_PROC = 8
 
 gem5Binary = 'gem5.debug'
-experimentList = [[i, 'simple.py', 'hello'] for i in range(1)]
+#experimentList = [[0, 'simple.py', 'hello']]
+experimentList = [[1, 'skewed.py', 'hello']]
 #----------------------
 
 
