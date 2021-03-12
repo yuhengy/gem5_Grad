@@ -4,9 +4,11 @@ import time
 
 
 #----------------------
-USE_SSH_CLUSTER = True
+RUN_MODE = "multiProc" # singleProc, multiProc, cluster
+NUM_PROC = 8
+
 gem5Binary = 'gem5.debug'
-experimentList = [[i, 'simple.py', 'hello'] for i in range(20)]
+experimentList = [[i, 'simple.py', 'hello'] for i in range(1)]
 #----------------------
 
 
@@ -43,7 +45,7 @@ def initClient():
 
 
 def runSimu(index_config_app):
-  if not os.path.exists('~/myMnt/gem5'):
+  if not os.path.exists(os.path.expanduser('~') + '/myMnt/gem5'):
     os.system("sshfs myMac:Documents/ProjectGraduation ~/myMnt")
 
   os.system( \
@@ -58,14 +60,34 @@ def runSimu(index_config_app):
 
 if __name__ == "__main__":
 
-  if USE_SSH_CLUSTER:
+  # STEP1 init the cluster or multiProcess
+  if RUN_MODE == "multiProc":
+    from concurrent.futures import ProcessPoolExecutor
+    client = ProcessPoolExecutor(NUM_PROC)
+  elif RUN_MODE == "cluster":
     client = initClient()
-    futureList = client.map(runSimu, experimentList)
-    from dask.distributed import progress
-    progress(futureList)
-    print('')
+
+
+  # STEP2 mark start time
+  startTime = time.time()
+
+  # STEP3 run them
+  if RUN_MODE == "singleProc":
+    for i, index_config_app in enumerate(experimentList):
+      runSimu(index_config_app)
+      print("----------> Finish %d/%d Simu, After %f minutes" % \
+        (i+1, len(experimentList), (time.time() - startTime)/60))
 
   else:
+    futureList = []
     for index_config_app in experimentList:
-      runSimu(index_config_app)
+      futureList.append(client.submit(runSimu, index_config_app))
+
+    for i, future in enumerate(futureList):
+      future.result()
+      print("----------> Finish %d/%d Simu, After %f minutes" % \
+        (i+1, len(experimentList), (time.time() - startTime)/60))
+
+
+
 
