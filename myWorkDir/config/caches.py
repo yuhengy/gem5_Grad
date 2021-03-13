@@ -1,5 +1,5 @@
 import m5
-from m5.objects import Cache
+from m5.objects import Cache, RekeyCache
 
 # Some specific options for caches
 # For all options see src/mem/cache/BaseCache.py
@@ -29,3 +29,14 @@ class L2Cache(Cache):
     response_latency = 20
     mshrs = 20
     tgts_per_mshr = 12
+
+
+class rekeyL2Cache(RekeyCache):
+    size = '256kB'
+    assoc = 8
+    tag_latency = 20
+    data_latency = 20
+    response_latency = 20
+    mshrs = 20
+    tgts_per_mshr = 12
+

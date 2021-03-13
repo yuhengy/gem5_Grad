@@ -7,7 +7,7 @@ from m5.objects import *
 from caches import *
 
 
-def configSystem():
+def configSystem(useRekeyCache=False):
   # create the system we are going to simulate
   system = System()
 
@@ -39,7 +39,10 @@ def configSystem():
   system.cpu.dcache.mem_side = system.l2bus.cpu_side_ports
 
   # Create an L2 cache and connect it to the l2bus
-  system.l2cache = L2Cache()
+  if useRekeyCache:
+    system.l2cache = rekeyL2Cache()
+  else:
+    system.l2cache = L2Cache()
   system.l2bus.mem_side_ports = system.l2cache.cpu_side
 
   # Create a memory bus, a system crossbar, in this case

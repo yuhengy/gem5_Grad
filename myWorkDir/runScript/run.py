@@ -10,7 +10,8 @@ NUM_PROC = 8
 gem5Binary = 'gem5.debug'
 #experimentList = [[0, 'simple.py', 'hello']]
 #experimentList = [[1, 'skewed.py', 'hello']]
-experimentList = [[2, 'scatter.py', 'hello']]
+#experimentList = [[2, 'scatter.py', 'hello']]
+experimentList = [[3, 'rekey.py', 'hello']]
 #----------------------
 
 

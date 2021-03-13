@@ -145,6 +145,9 @@ class Cache(BaseCache):
     type = 'Cache'
     cxx_header = 'mem/cache/cache.hh'
 
+class RekeyCache(Cache):
+    type = 'RekeyCache'
+    cxx_header = 'mem/cache/rekey_cache.hh'
 
 class NoncoherentCache(BaseCache):
     type = 'NoncoherentCache'
