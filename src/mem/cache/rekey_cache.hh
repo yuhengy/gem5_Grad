@@ -6,15 +6,15 @@
 
 struct RekeyCacheParams;
 
-/**
- * A coherent cache that can be arranged in flexible topologies.
- */
 class RekeyCache : public Cache
 {
   protected:
+    const uint64_t maxEvictPerEpoch;
+
+  protected:
+    void evictBlock(CacheBlk *blk, PacketList &writebacks);
 
   public:
-    /** Instantiates a basic cache object. */
     RekeyCache(const RekeyCacheParams *p);
 };
 

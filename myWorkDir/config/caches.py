@@ -37,6 +37,7 @@ class rekeyL2Cache(RekeyCache):
     tag_latency = 20
     data_latency = 20
     response_latency = 20
-    mshrs = 20
+    #mshrs = 20
+    mshrs = 200000
     tgts_per_mshr = 12
 

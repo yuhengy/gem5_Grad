@@ -149,6 +149,9 @@ class RekeyCache(Cache):
     type = 'RekeyCache'
     cxx_header = 'mem/cache/rekey_cache.hh'
 
+    max_evict_per_epoch = Param.Unsigned(256*1024 / 64,
+        "Max number of eviction before going to next epoch (rekeying)")
+
 class NoncoherentCache(BaseCache):
     type = 'NoncoherentCache'
     cxx_header = 'mem/cache/noncoherent_cache.hh'

@@ -769,7 +769,7 @@ class BaseCache : public ClockedObject
      * @param blk Block to invalidate
      * @param writebacks Return a list of packets with writebacks
      */
-    void evictBlock(CacheBlk *blk, PacketList &writebacks);
+    virtual void evictBlock(CacheBlk *blk, PacketList &writebacks);
 
     /**
      * Invalidate a cache block.
@@ -1062,6 +1062,12 @@ class BaseCache : public ClockedObject
 
         /** Number of replacements of valid blocks. */
         Stats::Scalar replacements;
+
+        /** Number of replacements that trigger rekey. */
+        Stats::Scalar replacementsDefineEpoch;
+
+        /** Number of epoch (times of rekey). */
+        Stats::Scalar numEpoch;
 
         /** Number of data expansions. */
         Stats::Scalar dataExpansions;

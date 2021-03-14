@@ -2048,6 +2048,9 @@ BaseCache::CacheStats::CacheStats(BaseCache &c)
         this, "overall_avg_mshr_uncacheable_latency",
         "average overall mshr uncacheable latency"),
     replacements(this, "replacements", "number of replacements"),
+    replacementsDefineEpoch(this, "replacementsDefineEpoch",
+                            "Number of replacements that trigger rekey"),
+    numEpoch(this, "numEpoch", "Number of epoch (times of rekey)"),
 
     dataExpansions(this, "data_expansions", "number of data expansions"),
     cmd(MemCmd::NUM_MEM_CMDS)
