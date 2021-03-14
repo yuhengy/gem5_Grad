@@ -14,15 +14,18 @@ class L1Cache(Cache):
 
 
 class L1ICache(L1Cache):
-    size = '16kB'
+    #size = '16kB'
+    size = '4kB'
 
 
 class L1DCache(L1Cache):
-    size = '64kB'
+    #size = '64kB'
+    size = '8kB'
 
 
 class L2Cache(Cache):
-    size = '256kB'
+    #size = '256kB'
+    size = '16kB'
     assoc = 8
     tag_latency = 20
     data_latency = 20
@@ -32,7 +35,8 @@ class L2Cache(Cache):
 
 
 class rekeyL2Cache(RekeyCache):
-    size = '256kB'
+    #size = '256kB'
+    size = '16kB'
     assoc = 8
     tag_latency = 20
     data_latency = 20

@@ -11,7 +11,9 @@ gem5Binary = 'gem5.debug'
 #experimentList = [[0, 'simple.py', 'hello']]
 #experimentList = [[1, 'skewed.py', 'hello']]
 #experimentList = [[2, 'scatter.py', 'hello']]
-experimentList = [[3, 'rekey.py', 'hello']]
+#experimentList = [[3, 'rekey.py', 'hello']]
+
+experimentList = [[4, 'rekey.py', 'stream_c']]
 #----------------------
 
 
@@ -53,7 +55,7 @@ def runSimu(index_config_app):
 
   os.system( \
     '~/myMnt/gem5/build/RISCV/' + gem5Binary + \
-    ' --outdir='+ os.path.expanduser('~') + '/myMnt/gem5/myWorkDir/result/' + str(index_config_app[0]) + '-' + index_config_app[1][:-3] + index_config_app[2] + \
+    ' --outdir='+ os.path.expanduser('~') + '/myMnt/gem5/myWorkDir/result/' + str(index_config_app[0]) + '-' + index_config_app[1][:-3] + '-' + index_config_app[2] + \
     ' ~/myMnt/gem5/myWorkDir/config/' + index_config_app[1] + \
     ' -c ~/myMnt/gem5/myWorkDir/app/' + index_config_app[2] \
   )
