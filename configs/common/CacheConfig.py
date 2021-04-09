@@ -97,9 +97,17 @@ def config_cache(options, system):
         # Provide a clock for the L2 and the L1-to-L2 bus here as they
         # are not connected using addTwoLevelCacheHierarchy. Use the
         # same clock as the CPUs.
-        system.l2 = l2_cache_class(clk_domain=system.cpu_clk_domain,
-                                   size=options.l2_size,
-                                   assoc=options.l2_assoc)
+        if options.l2reKey:
+            system.l2 = rekeyL2Cache(clk_domain=system.cpu_clk_domain,
+                                     size=options.l2_size,
+                                     assoc=options.l2_assoc,
+                                     max_evict_per_epoch=options.l2_max_evict_per_epoch,
+                                     mshrs=options.l2_mshrs)
+            system.l2.tags.indexing_policy = SkewedAssociative()
+        else:
+            system.l2 = l2_cache_class(clk_domain=system.cpu_clk_domain,
+                                       size=options.l2_size,
+                                       assoc=options.l2_assoc)
 
         system.tol2bus = L2XBar(clk_domain = system.cpu_clk_domain)
         system.l2.cpu_side = system.tol2bus.master

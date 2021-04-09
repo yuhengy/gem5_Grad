@@ -4,73 +4,83 @@ import time
 
 
 #----------------------
-RUN_MODE = "multiProc" # singleProc, multiProc, cluster
-NUM_PROC = 8
+RUN_MODE = "multiProc" # singleProc, multiProc
 
-gem5Binary = 'gem5.debug'
-#experimentList = [[0, 'simple.py', 'hello']]
-#experimentList = [[1, 'skewed.py', 'hello']]
-#experimentList = [[2, 'scatter.py', 'hello']]
-#experimentList = [[3, 'rekey.py', 'hello']]
+GEM5_DIR = os.getcwd()
 
-experimentList = [[4, 'rekey.py', 'stream_c']]
+REDIRECT_TERMINAL_OUTPUT = False
+
+runOptions = ' --cpu-type=DerivO3CPU  \
+              --num-cpus=1 \
+              --caches --l1d_size=32kB --l1i_size=32kB \
+              --l1d_assoc=8 --l1i_assoc=8 \
+              --l2cache \
+              --l2_size=1MB --l2_assoc=16 \
+              --mem-size=4GB'
+#TODO: add L3
+
+#reKeyOptions = ' --l2reKey --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 1024*1024 / 64 * 100)
+reKeyOptions = ' --l2reKey --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 2)
+
+## SEPT1 hello
+#experimentList = [[0, 'X86/gem5.opt', runOptions, 'hello', '']]
+#experimentList = [[1, 'RISCV/gem5.debug', runOptions, 'hello', '']]
+#experimentList = [[2, 'RISCV/gem5.debug', runOptions + reKeyOptions, 'hello', '']]
+
+## STEP2 stream
+#experimentList = [[3, 'RISCV/gem5.debug', runOptions, 'stream', '']]
+experimentList = [[4, 'RISCV/gem5.debug', runOptions + reKeyOptions, 'stream', '']]
+
 #----------------------
 
 
-def initClient():
-  from dask.distributed import Client, SSHCluster, progress
+def initClient(RUN_MODE):
+  from dask.distributed import Client, LocalCluster
 
-  # STEP1 create a cluster
-  # NOTE: nthreads = 1 means each runsimu() use one thread
-  #       nproces = -1 means auto set nproces = ncores / nthreads
-  '''
-  cluster = SSHCluster(
-    ["myUbuntu", "myUbuntu"],
-    connect_options=[{"username":"yuhengy"}, {"username":"yuhengy"}],
-    scheduler_options={"idle_timeout":"10 seconds"},
-    worker_options={"nthreads": 1, "nprocs": -1, "lifetime":"1 hour"},
-    remote_python=["python3", "python3"]
-  )
-  '''
-  cluster = SSHCluster(
-    ["localhost", "localhost"],
-    connect_options=[{"username":"vagrant"}, {"username":"vagrant"}],
-    scheduler_options={"idle_timeout":"10 seconds"},
-    worker_options={"nthreads": 1, "nprocs": -1, "lifetime":"1 hour"},
-    remote_python=["python3", "python3"]
-  )
-  
+  # STEP1 choose a cluster
+  if RUN_MODE == "multiProc":
+    cluster = LocalCluster(threads_per_worker=1, local_directory="/tmp")
+  else:
+    assert(False)
+
   time.sleep(1)
   print(cluster)
 
-  # STEP 2 setup a client
+  # STEP2 setup a client
   client = Client(cluster)
 
   return client
 
 
-def runSimu(index_config_app):
-  if not os.path.exists(os.path.expanduser('~') + '/myMnt/gem5'):
-    os.system("sshfs myMac:Documents/ProjectGraduation ~/myMnt")
+def runSimu(index_binary_config_app_arg):
+  command = GEM5_DIR + '/build/' + index_binary_config_app_arg[1] + \
+    ' --outdir='+ GEM5_DIR + '/myWorkDir/result/' + str(index_binary_config_app_arg[0]) + '-' + index_binary_config_app_arg[3] + \
+    ' ' + GEM5_DIR + '/configs/example/se.py' + index_binary_config_app_arg[2] + \
+    ' -c ' + GEM5_DIR + '/myWorkDir/app/' + index_binary_config_app_arg[3] + '/build/' + index_binary_config_app_arg[3] + ' --options="' + index_binary_config_app_arg[4] +'"'
 
-  os.system( \
-    '~/myMnt/gem5/build/RISCV/' + gem5Binary + \
-    ' --outdir='+ os.path.expanduser('~') + '/myMnt/gem5/myWorkDir/result/' + str(index_config_app[0]) + '-' + index_config_app[1][:-3] + '-' + index_config_app[2] + \
-    ' ~/myMnt/gem5/myWorkDir/config/' + index_config_app[1] + \
-    ' -c ~/myMnt/gem5/myWorkDir/app/' + index_config_app[2] \
-  )
-
+  if REDIRECT_TERMINAL_OUTPUT:
+    command += ' > ' + GEM5_DIR + '/myWorkDir/result/' + str(index_binary_config_app_arg[0]) + '-' + index_binary_config_app_arg[3] + '/terminal.log'
+  
+  print("command: ", command)
+  os.system(command)
 
 
 
 if __name__ == "__main__":
 
+  # STEP0 compile
+  for index, binary, config, app, _ in experimentList:
+    if binary[0] == "R":
+      os.system('CC=riscv64-linux-gnu-gcc make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
+    elif binary[0] == "X":
+      os.system('CC=x86_64-linux-gnu-gcc make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
+    else:
+      assert(False)
+    os.makedirs(GEM5_DIR + '/myWorkDir/result/' + str(index) + '-' + app, exist_ok=True)
+
   # STEP1 init the cluster or multiProcess
-  if RUN_MODE == "multiProc":
-    from concurrent.futures import ProcessPoolExecutor
-    client = ProcessPoolExecutor(NUM_PROC)
-  elif RUN_MODE == "cluster":
-    client = initClient()
+  if not RUN_MODE == "singleProc":
+    client = initClient(RUN_MODE)
 
 
   # STEP2 mark start time
@@ -78,21 +88,18 @@ if __name__ == "__main__":
 
   # STEP3 run them
   if RUN_MODE == "singleProc":
-    for i, index_config_app in enumerate(experimentList):
-      runSimu(index_config_app)
+    for i, index_binary_config_app_arg in enumerate(experimentList):
+      runSimu(index_binary_config_app_arg)
       print("----------> Finish %d/%d Simu, After %f minutes" % \
         (i+1, len(experimentList), (time.time() - startTime)/60))
 
   else:
     futureList = []
-    for index_config_app in experimentList:
-      futureList.append(client.submit(runSimu, index_config_app))
+    for index_binary_config_app_arg in experimentList:
+      futureList.append(client.submit(runSimu, index_binary_config_app_arg))
 
     for i, future in enumerate(futureList):
       future.result()
       print("----------> Finish %d/%d Simu, After %f minutes" % \
         (i+1, len(experimentList), (time.time() - startTime)/60))
-
-
-
 
