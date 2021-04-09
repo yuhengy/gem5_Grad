@@ -1069,6 +1069,12 @@ class BaseCache : public ClockedObject
         /** Number of epoch (times of rekey). */
         Stats::Scalar numEpoch;
 
+        /** Number of invalidated becuase of epoch change flush. */
+        Stats::Scalar numFlushInvalid;
+
+        /** Number of writeBacks becuase of epoch change flush. */
+        Stats::Scalar numFlushWB;
+
         /** Number of data expansions. */
         Stats::Scalar dataExpansions;
 

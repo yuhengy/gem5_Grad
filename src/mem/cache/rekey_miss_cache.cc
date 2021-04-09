@@ -1,21 +1,21 @@
 
 #include <map>
 
-#include "mem/cache/rekey_cache.hh"
+#include "mem/cache/rekey_miss_cache.hh"
 
 #include "base/types.hh"
 #include "mem/cache/tags/base_set_assoc.hh"
-#include "params/RekeyCache.hh"
+#include "params/RekeyMissCache.hh"
 
 #define MAX_ENTRY_IN_EVICTHISTORY 1000
 
-RekeyCache::RekeyCache(const RekeyCacheParams *p)
+RekeyMissCache::RekeyMissCache(const RekeyMissCacheParams *p)
     : Cache(p),
       maxEvictPerEpoch(p->max_evict_per_epoch)
 {}
 
 void
-RekeyCache::evictBlock(CacheBlk *blk, PacketList &writebacks)
+RekeyMissCache::evictBlock(CacheBlk *blk, PacketList &writebacks)
 {
 
     //static uint64_t numEvict = 0;
@@ -58,8 +58,13 @@ RekeyCache::evictBlock(CacheBlk *blk, PacketList &writebacks)
         for (CacheBlk& blk_anyone :
             static_cast<BaseSetAssoc*>(tags)->getBlks()) {
             if (blk_anyone.isValid()) {
+                stats.numFlushInvalid++;
                 PacketPtr pkt = Cache::evictBlock(&blk_anyone);
                 if (pkt) {
+                    if (pkt->cmd == MemCmd::WritebackDirty ||
+                        pkt->cmd == MemCmd::WriteClean) {
+                        stats.numFlushWB++;
+                    }
                     writebacks.push_back(pkt);
                 }
             }
@@ -79,11 +84,11 @@ RekeyCache::evictBlock(CacheBlk *blk, PacketList &writebacks)
 
 }
 
-RekeyCache*
-RekeyCacheParams::create()
+RekeyMissCache*
+RekeyMissCacheParams::create()
 {
     assert(tags);
     assert(replacement_policy);
 
-    return new RekeyCache(this);
+    return new RekeyMissCache(this);
 }

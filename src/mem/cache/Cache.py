@@ -145,9 +145,16 @@ class Cache(BaseCache):
     type = 'Cache'
     cxx_header = 'mem/cache/cache.hh'
 
-class RekeyCache(Cache):
-    type = 'RekeyCache'
-    cxx_header = 'mem/cache/rekey_cache.hh'
+class RekeyMissCache(Cache):
+    type = 'RekeyMissCache'
+    cxx_header = 'mem/cache/rekey_miss_cache.hh'
+
+    max_evict_per_epoch = Param.Unsigned(256*1024 / 64,
+        "Max number of eviction before going to next epoch (rekeying)")
+
+class RekeyHitCache(Cache):
+    type = 'RekeyHitCache'
+    cxx_header = 'mem/cache/rekey_hit_cache.hh'
 
     max_evict_per_epoch = Param.Unsigned(256*1024 / 64,
         "Max number of eviction before going to next epoch (rekeying)")

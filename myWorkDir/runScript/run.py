@@ -19,17 +19,23 @@ runOptions = ' --cpu-type=DerivO3CPU  \
               --mem-size=4GB'
 #TODO: add L3
 
-#reKeyOptions = ' --l2reKey --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 1024*1024 / 64 * 100)
-reKeyOptions = ' --l2reKey --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 2)
+#reKeyMissOptions = ' --l2reKeyMiss --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 1024*1024 / 64 * 100)
+reKeyMissOptions = ' --l2reKeyMiss --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 2)
+reKeyHitOptions = ' --l2reKeyHit --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 2)
 
+experimentList = []
 ## SEPT1 hello
-#experimentList = [[0, 'X86/gem5.opt', runOptions, 'hello', '']]
-#experimentList = [[1, 'RISCV/gem5.debug', runOptions, 'hello', '']]
-#experimentList = [[2, 'RISCV/gem5.debug', runOptions + reKeyOptions, 'hello', '']]
+experimentList.append([0, 'X86/gem5.opt', runOptions, 'hello', ''])
+experimentList.append([1, 'X86/gem5.opt', runOptions + reKeyMissOptions, 'hello', ''])
+experimentList.append([2, 'X86/gem5.opt', runOptions + reKeyHitOptions, 'hello', ''])
+#experimentList.append([3, 'RISCV/gem5.opt', runOptions, 'hello', ''])
+#experimentList.append([4, 'RISCV/gem5.opt', runOptions + reKeyMissOptions, 'hello', ''])
+#experimentList.append([5, 'RISCV/gem5.opt', runOptions + reKeyHitOptions, 'hello', ''])
 
 ## STEP2 stream
-#experimentList = [[3, 'RISCV/gem5.debug', runOptions, 'stream', '']]
-experimentList = [[4, 'RISCV/gem5.debug', runOptions + reKeyOptions, 'stream', '']]
+experimentList.append([6, 'RISCV/gem5.opt', runOptions, 'stream', ''])
+experimentList.append([7, 'RISCV/gem5.opt', runOptions + reKeyMissOptions, 'stream', ''])
+experimentList.append([8, 'RISCV/gem5.opt', runOptions + reKeyHitOptions, 'stream', ''])
 
 #----------------------
 

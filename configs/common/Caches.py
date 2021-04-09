@@ -74,7 +74,14 @@ class L2Cache(Cache):
     tgts_per_mshr = 12
     write_buffers = 8
 
-class rekeyL2Cache(RekeyCache):
+class rekeyMissL2Cache(RekeyMissCache):
+    assoc = 8
+    tag_latency = 20
+    data_latency = 20
+    response_latency = 20
+    tgts_per_mshr = 12
+
+class rekeyHitL2Cache(RekeyHitCache):
     assoc = 8
     tag_latency = 20
     data_latency = 20

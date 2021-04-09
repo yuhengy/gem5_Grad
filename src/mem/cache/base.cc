@@ -2051,6 +2051,8 @@ BaseCache::CacheStats::CacheStats(BaseCache &c)
     replacementsDefineEpoch(this, "replacementsDefineEpoch",
                             "Number of replacements that trigger rekey"),
     numEpoch(this, "numEpoch", "Number of epoch (times of rekey)"),
+    numFlushInvalid(this, "numFlushInvalid", "Number of invalidated becuase of epoch change flush"),
+    numFlushWB(this, "numFlushWB", "Number of writeBacks becuase of epoch change flush"),
 
     dataExpansions(this, "data_expansions", "number of data expansions"),
     cmd(MemCmd::NUM_MEM_CMDS)
