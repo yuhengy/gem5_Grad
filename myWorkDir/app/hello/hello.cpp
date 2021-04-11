@@ -29,10 +29,13 @@
  */
 
 #include <stdio.h>
+#include "gem5/m5ops.h"
 
 int main(int argc, char* argv[])
 {
-    printf("Hello world!\n");
+    printf("[before checkpoint] Hello world!\n");
+    m5_checkpoint(0, 0);
+    printf("[after checkpoint] Hello world!\n");
     return 0;
 }
 

@@ -46,6 +46,7 @@
 # include <float.h>
 # include <limits.h>
 # include <sys/time.h>
+# include "gem5/m5ops.h"
 
 /*-----------------------------------------------------------------------
  * INSTRUCTIONS:
@@ -242,6 +243,11 @@ main()
     printf("Each kernel will be executed %d times.\n", NTIMES);
     printf(" The *best* time for each kernel (excluding the first iteration)\n"); 
     printf(" will be used to compute the reported bandwidth.\n");
+
+    
+    printf("[before checkpoint] Hello world!\n");
+    m5_checkpoint(0, 0);
+    printf("[after checkpoint] Hello world!\n");
 
 #ifdef _OPENMP
     printf(HLINE);
