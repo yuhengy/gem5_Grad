@@ -296,6 +296,10 @@ def addCommonOptions(parser):
                               Useful when gem5 is run as a library.""")
 
     # Simpoint options
+    parser.add_option("--simpt-ckpt", action="store", default=None, type="int",
+                      help="Specify simpoint checkpoint ID")
+    parser.add_option("--benchmark", default="", action="store", type="string",
+                      help="benchmark")
     parser.add_option("--simpoint-profile", action="store_true",
                       help="Enable basic block profiling for SimPoints")
     parser.add_option("--simpoint-interval", type="int", default=10000000,

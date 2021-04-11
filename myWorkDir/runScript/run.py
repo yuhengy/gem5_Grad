@@ -2,8 +2,6 @@
 import os
 import time
 
-
-
 GEM5_DIR = os.getcwd()
 
 #----------------------
@@ -18,28 +16,43 @@ runOpt = ' --cpu-type=DerivO3CPU  \
            --l2cache \
            --l2_size=1MB --l2_assoc=16 \
            --mem-size=4GB'
-
-rstCktOpt = ' --checkpoint-restore=1'
+ROIOpt = ' --maxinsts=50000000 --warmup-insts=1000000'
 
 #rekMOpt = ' --l2reKeyMiss --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 1024*1024 / 64 * 100)
 rekMOpt = ' --l2reKeyMiss --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 2)
 rekHOpt = ' --l2reKeyHit --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 2)
 
 experimentList = []
+
 ## SEPT1 hello
+rstCktOpt = ' --checkpoint-restore=1'
 #experimentList.append([0, 'X86/gem5.opt', runOpt, 'hello', ''])
 #experimentList.append([1, 'X86/gem5.opt', runOpt + rekMOpt, 'hello', ''])
 #experimentList.append([2, 'X86/gem5.opt', runOpt + rekHOpt, 'hello', ''])
 #experimentList.append([3, 'RISCV/gem5.opt', runOpt, 'hello', ''])
-experimentList.append([4, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'hello', ''])
+#experimentList.append([4, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'hello', ''])
 #experimentList.append([4, 'RISCV/gem5.opt', runOpt + rekMOpt, 'hello', ''])
 #experimentList.append([5, 'RISCV/gem5.opt', runOpt + rekHOpt, 'hello', ''])
 
 ## STEP2 stream
 #experimentList.append([6, 'RISCV/gem5.opt', runOpt, 'stream', ''])
-experimentList.append([7, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'stream', ''])
+#experimentList.append([7, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'stream', ''])
 #experimentList.append([7, 'RISCV/gem5.opt', runOpt + rekMOpt, 'stream', ''])
 #experimentList.append([8, 'RISCV/gem5.opt', runOpt + rekHOpt, 'stream', ''])
+
+## STEP3 docDist/mrsFast
+
+## STEP4 SPEC2017
+SPECOpt = ' --benchmark=%s \
+            --simpt-ckpt=%d \
+            --checkpoint-restore=1 --at-instruction'
+from SPECList import SPECList
+#SPECList = []
+SPECList = [[11, "blender_r", 0]]
+
+for i, name, simptID in SPECList:
+  experimentList.append([i, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + ROIOpt, 'SPEC2017-ckpt', ''])
+
 
 #----------------------
 
@@ -63,11 +76,17 @@ def initClient(RUN_MODE):
 
 
 def runSimu(index_binary_config_app_arg):
+
+  if index_binary_config_app_arg[3][:4] == 'SPEC':
+    runShell = ''
+  else:
+    runShell = ' -c ' + GEM5_DIR + '/myWorkDir/app/' + index_binary_config_app_arg[3] + '/build/' + index_binary_config_app_arg[3] + ' --options="' + index_binary_config_app_arg[4] +'"'
+
   command = GEM5_DIR + '/build/' + index_binary_config_app_arg[1] + \
     ' --outdir='+ GEM5_DIR + '/myWorkDir/result/' + str(index_binary_config_app_arg[0]) + '-' + index_binary_config_app_arg[3] + \
     ' ' + GEM5_DIR + '/configs/example/se.py' + index_binary_config_app_arg[2] + \
     ' --checkpoint-dir=' + GEM5_DIR + '/myWorkDir/app/' + index_binary_config_app_arg[3] + \
-    ' -c ' + GEM5_DIR + '/myWorkDir/app/' + index_binary_config_app_arg[3] + '/build/' + index_binary_config_app_arg[3] + ' --options="' + index_binary_config_app_arg[4] +'"'
+    runShell
 
   if REDIRECT_TERMINAL_OUTPUT:
     command += ' > ' + GEM5_DIR + '/myWorkDir/result/' + str(index_binary_config_app_arg[0]) + '-' + index_binary_config_app_arg[3] + '/terminal.log'
