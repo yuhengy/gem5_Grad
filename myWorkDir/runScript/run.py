@@ -51,13 +51,19 @@ rstCktOpt = ' --checkpoint-restore=1 --maxinsts=50000000 --warmup-insts=1000000'
 #experimentList.append([24, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'stream', ''])
 
 ## STEP3 docDist
-experimentList.append([100, 'RISCV/gem5.opt', runOpt, 'docDist', ''])
+#experimentList.append([100, 'RISCV/gem5.opt', runOpt, 'docDist', ''])
 #experimentList.append([101, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'docDist', ''])
 #experimentList.append([102, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'docDist', ''])
 #experimentList.append([103, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'docDist', ''])
 #experimentList.append([104, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'docDist', ''])
 
 ## STEP4 mrsFast
+arg = '--search myWorkDir/app/mrsFast/dataset/chr3_50K.fa --seq myWorkDir/app/mrsFast/dataset/chr3_50K_2000.fq'
+experimentList.append([200, 'RISCV/gem5.opt', runOpt, 'mrsFast', arg])
+#experimentList.append([201, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'mrsFast', arg])
+#experimentList.append([202, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'mrsFast', arg])
+#experimentList.append([203, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'mrsFast', arg])
+#experimentList.append([204, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'mrsFast', arg])
 
 ## STEP5 SPEC2017
 SPECOpt = ' --benchmark=%s --simpt-ckpt=%d \

@@ -1,0 +1,246 @@
+mrsFAST-Ultra(1)             mrsfast-Ultra Manual             mrsFAST-Ultra(1)
+
+
+
+NNAAMMEE
+       mrsfast-ultra
+
+DDEESSCCRRIIPPTTIIOONN
+       mrsFAST is a cache oblivious read mapping tool. mrsFAST capable of map-
+       ping single and paired end reads to  the  reference  genome.  Bisulfite
+       treated  sequences are not supported in this version.
+
+
+IINNSSTTAALLLLAATTIIOONN
+       To  install  mrsFAST-ultra, please download the source zip package from
+       http://sourceforge.net/projects/mrsfast/.  After  unzipping  the  down-
+       loaded  file "mrsfast-ultra-3.X.X.zip", change the current directory to
+       the source directory "mrsfast-ultra-3.X.X", and run "make" in the  ter-
+       minal.  The  binary  file  "mrsfast" will be created, which is ready to
+       use.
+       $ unzip mrsfast-ultra-3.X.X.zip
+       $ cd mrsfast-ultra-3.X.X
+       $ make
+
+
+SSYYNNOOPPSSIISS
+       mrsfast --index [file] [OPTIONS]
+       mrsfast --search [index] --seq [file] [OPTIONS]
+
+OOPPTTIIOONNSS
+   GGEENNEERRAALL OOPPTTIIOONNSS
+       --hh     Prints this help file.
+
+       --vv,, ----vveerrssiioonn
+              Prints the version of software.
+
+   IINNDDEEXXIINNGG OOPPTTIIOONNSS
+       ----wwss _w_i_n_d_o_w___s_i_z_e
+              Index the reference genome with sliding a window  of  size  _w_i_n_-
+              _d_o_w___s_i_z_e (default: 12).
+
+
+   MMAAPPPPIINNGG OOPPTTIIOONNSS
+       ----mmeemm _m
+              Use maximum _m GB of memory (default: 4).
+
+
+       ----tthhrreeaaddss _t
+              Use  _t  number  of cores for mapping the sequences (default: 1).
+              Use _0 to use all the available cores in the system.
+
+
+       ----sseeqq _f_i_l_e
+              Set the input sequence to _f_i_l_e_.  In paired-end mode, _f_i_l_e should
+              be used if the read sequences are interleaved.
+
+
+       ----sseeqq11 _f_i_l_e
+              Set  the  input sequence (left mate) to _f_i_l_e_.  Paired-end option
+              only.
+
+
+       ----sseeqq22 _f_i_l_e
+              Set the input sequence (right mate) to _f_i_l_e_.  Paired-end  option
+              only.
+
+
+       ----sseeqqccoommpp
+              Input file is compressed through gzip.
+
+
+       --oo _f_i_l_e
+              Output the mapping record into _f_i_l_e (default: output.sam)
+
+
+       ----ddiissaabbllee--ssaamm--hheeaaddeerr
+              Do not generate SAM header.
+
+
+       --uu _f_i_l_e
+              Output unmapped reads in _f_i_l_e (default: output.nohit). This file
+              will be generated in all mapping mode.
+
+
+       ----ddiissaabbllee--nnoohhiittss
+              Do not output unmapped reads.
+
+
+       ----oouuttccoommpp
+              Compress the output _f_i_l_e by gzip.
+
+
+       --nn _c_u_t_-_o_f_f
+              Output the mapping for the read sequences that  have  less  than
+              _c_u_t_-_o_f_f number of mappings. Cannot be used with ----bbeesstt or ----ddiiss--
+              ccoorrddaanntt--vvhh options.
+
+
+
+       ----ccrroopp _n
+              Trim the reads to _n base pairs from begining of the read.
+
+
+       ----ttaaiill--ccrroopp _n
+              Trim the reads to _n base pairs from end of the read.
+
+
+       --ee _e_r_r_o_r_-_t_h_r_e_s_h_o_l_d
+              Allow up to _e_r_r_o_r_-_t_h_r_e_s_h_o_l_d mismatches in the mappings.
+
+
+       ----bbeesstt Find the best mapping location of given reads.
+
+
+       ----ppee   Map the reads in Paired-End  mode.   mmiinn  and  mmaaxx  of  template
+              length  will  be  calculated  if  not  provided by corresponding
+              options.
+
+
+       ----mmiinn _m_i_n_-_d_i_s_c_o_r_d_a_n_t_-_l_e_n_g_t_h
+              Use _m_i_n_-_d_i_s_c_o_r_d_a_n_t_-_l_e_n_g_t_h for minimum length of concordant  map-
+              ping. Paired-end option only.
+
+
+       ----mmaaxx _m_a_x_-_d_i_s_c_o_r_d_a_n_t_-_l_e_n_g_t_h
+              Use  _m_a_x_-_d_i_s_c_o_r_d_a_n_t_-_l_e_n_g_t_h for maximum length of concordant map-
+              ping. Paired-end option only.
+
+
+       ----ddiissccoorrddaanntt--vvhh
+              Map the reads in discordant fashion that  can  be  processed  by
+              Variation  Hunter / Common Law. Output will be generate in DIVET
+              format.
+
+
+       ----mmaaxx--ddiissccoorrddaanntt--ccuuttooffff _m
+              Allow _m discordant mappings per read. Should be only  used  with
+              ----ddiissccoorrddaanntt--vvhh option.
+
+
+       ----ssnnpp _s_n_p_-_f_i_l_e
+              Map the reads in SNP aware mode. In this mode mrsFAST-Ultra tol-
+              erates the mismatches in known SNP  locations  reported  by  the
+              provided SNP database. The SNP index _s_n_p_-_f_i_l_e
+               should  be  created  from  the  dbSNP  (.vcf)  file  using  the
+              snp_indexer binary.
+
+
+       ----ssnnpp--qquuaall _q_u_a_l_i_t_y_-_t_h_r_e_s_h_o_l_d
+              In SNP-aware mode, a mismatch at a reported SNP location will be
+              ignored  only  if  the corresponding read location has a quality
+              higher than or equal to the _q_u_a_l_i_t_y_-_t_h_r_e_s_h_o_l_d  _q_u_a_l_i_t_y_-_t_h_r_e_s_h_o_l_d
+              is  a  Phred-Value  base  33. The default is 53 (base call error
+              0.01).
+
+
+EEXXAAMMPPLLEESS
+       Indexing reference genome:
+       $ ./mrsfast --index refgen.fasta
+       $ ./mrsfast --index refgen.fasta --ws 14
+
+       Single-end mapping:
+       $ ./mrsfast --search refgen.fa --seq reads.fastq
+       $ ./mrsfast --search refgen.fa --seq reads.fastq -e 3 -n 10 --threads 4
+       $ ./mrsfast --search refgen.fa --seq reads.fastq -e 3 --best -o output
+
+       Paired-end mapping:
+       $ ./mrsfast --search refgen.fasta --pe --seq pe-reads.fastq  --min  100
+       --max 400
+       $  ./mrsfast --search refgen.fasta --pe --seq1 first-mates.fastq --seq2
+       second-mates.fastq -e 3 --threads 4
+       $ ./mrsfast --search refgen.fasta --pe --seq1 first-mates.fastq  --seq2
+       second-mates.fastq --min 100 --max 400 --best -o output
+
+       Discordant mapping:
+       $   ./mrsfast   --search   refgen.fasta   --pe   --discordant-vh  --seq
+       reads.fastq --min 100 --max 400
+
+
+
+BBUUGGSS
+       Please report the  bugs  through  mrsfast's  web  page  at  http://mrs-
+       fast.sourceforge.net
+
+
+AAuutthhoorrss
+       Faraz Hach (fhach@sfu.ca)
+       Iman Sarrafi (isarrafi@sfu.ca)
+
+
+
+RReeffeerreennccee
+       Please cite the following paper for publications if using mrsFAST:
+
+       Faraz Hach, Fereydoun Hormozdiari, Can Alkan, Farhad Hormozdiari, Inanc
+       Birol, Evan E Eichler and S Cenk Sahinalp, "mrsFAST: a  cache-oblivious
+       algorithm for short-read mapping", Nature Methods 7, 576-577 (2010)
+
+       Please  cite  the  following  paper  for publications if using mrsFAST-
+       Ultra:
+
+       Faraz Hach, Iman Sarrafi, Farhad Hormozdiari, Can Alkan, Evan E.  Eich-
+       ler,  S. Cenk Sahinalp, "mrsFAST-Ultra: a compact, SNP-aware mapper for
+       high performance sequencing applications", Nucl.  Acids  Res.  (1  July
+       2014) 42 (W1): W494-W500.
+
+
+
+CCOOPPYYRRIIGGHHTT
+       Copyright (c) <2012-2020>, Simon Fraser University All rights reserved.
+
+       Redistribution and use in source and binary forms, with or without mod-
+       ification, are permitted provided that  the  following  conditions  are
+       met:
+
+
+       1      Redistributions  of  source code must retain the above copyright
+              notice, this list of conditions and the following disclaimer.
+
+       2      Redistributions in binary form must reproduce  the  above  copy-
+              right  notice,  thislist  of  conditions  and the following dis-
+              claimer in the documentation  and/or  other  materials  provided
+              with the distribution.
+
+       3      Neither the name of the Simon Fraser University nor the names of
+              its contributors may be used  to  endorse  or  promote  products
+              derived  from  this software without specific prior written per-
+              mission.
+
+
+       THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+       IS"  AND  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+       TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTIC-
+       ULAR  PURPOSE  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+       CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,  INCIDENTAL,  SPECIAL,
+       EXEMPLARY,  OR  CONSEQUENTIAL  DAMAGES  (INCLUDING, BUT NOT LIMITED TO,
+       PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;  LOSS  OF  USE,  DATA,  OR
+       PROFITS;  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+       LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,  OR  TORT  (INCLUDING
+       NEGLIGENCE  OR  OTHERWISE)  ARISING  IN  ANY WAY OUT OF THE USE OF THIS
+       SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+
+
+mrsFAST-Ultra             Last Updated: Nov 16, 2016          mrsFAST-Ultra(1)
