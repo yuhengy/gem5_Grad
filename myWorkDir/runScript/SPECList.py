@@ -9,7 +9,7 @@ info_all = [["blender_r", 9]  , ["bwaves_r", 8]   , ["cactuBSSN_r", 9], ["cam4_r
             ["povray_r", 8]   , ["roms_r", 10]    , ["wrf_r", 10]     , ["x264_r", 8]     , \
             ["xalancbmk_r", 7], ["xz_r", 8]]
 
-i = 100
+i = 0
 for name, simptNum in info_all:
   for simptID in range(simptNum):
     SPECList.append([i, name, simptID])

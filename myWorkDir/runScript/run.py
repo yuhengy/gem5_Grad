@@ -4,59 +4,68 @@ import time
 
 GEM5_DIR = os.getcwd()
 
-#----------------------
+#-------------------- 1/3 Run Config Begin --------------------
 RUN_MODE = "singleProc" # singleProc, multiProc
 
 REDIRECT_TERMINAL_OUTPUT = False
+#-------------------- 1/3 Run Config End --------------------
 
+
+#-------------------- 2/3 Run Config Begin --------------------
 runOpt = ' --cpu-type=DerivO3CPU  \
            --num-cpus=1 \
            --caches --l1d_size=32kB --l1i_size=32kB \
            --l1d_assoc=8 --l1i_assoc=8 \
            --l2cache \
-ROIOpt = ' --maxinsts=50000000 --warmup-insts=1000000'
            --l2_size=512kB --l2_assoc=16 \
            --l3cache \
            --l3_size=2MB --l3_assoc=16 --l3_mshrs=%d \
            --mem-size=4GB' % (2*1024*1024 / 64 + 20)
 
-#rekMOpt = ' --l2reKeyMiss --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 1024*1024 / 64 * 100)
-rekMOpt = ' --l2reKeyMiss --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 2)
-rekHOpt = ' --l2reKeyHit --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 2)
+#rekHOpt = ' --l3reKeyHit --l3_max_evict_per_epoch=%d' % (2*1024*1024 / 64 * 100)
+rekHOpt = ' --l3reKeyHit --l3_max_evict_per_epoch=%d' % (2)
+#rekMOpt = ' --l3reKeyMiss --l3_max_evict_per_epoch=%d' % (2*1024*1024 / 64 * 100)
+rekMOpt = ' --l3reKeyMiss --l3_max_evict_per_epoch=%d' % (2)
+#-------------------- 2/3 Run Config End --------------------
 
+
+#-------------------- 3/3 Run Config Begin --------------------
 experimentList = []
 
 ## SEPT1 hello
-rstCktOpt = ' --checkpoint-restore=1'
+rstCktOpt = ' --checkpoint-restore=1 --maxinsts=50000000 --warmup-insts=1000000'
 #experimentList.append([0, 'X86/gem5.opt', runOpt, 'hello', ''])
-#experimentList.append([1, 'X86/gem5.opt', runOpt + rekMOpt, 'hello', ''])
-#experimentList.append([2, 'X86/gem5.opt', runOpt + rekHOpt, 'hello', ''])
-#experimentList.append([3, 'RISCV/gem5.opt', runOpt, 'hello', ''])
-#experimentList.append([4, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'hello', ''])
-#experimentList.append([4, 'RISCV/gem5.opt', runOpt + rekMOpt, 'hello', ''])
-#experimentList.append([5, 'RISCV/gem5.opt', runOpt + rekHOpt, 'hello', ''])
+#experimentList.append([1, 'X86/gem5.opt', runOpt + rstCktOpt, 'hello', ''])
+#experimentList.append([2, 'X86/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'hello', ''])
+#experimentList.append([3, 'X86/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'hello', ''])
+#experimentList.append([10, 'RISCV/gem5.opt', runOpt, 'hello', ''])
+#experimentList.append([11, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'hello', ''])
+#experimentList.append([12, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'hello', ''])
+#experimentList.append([13, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'hello', ''])
 
 ## STEP2 stream
-#experimentList.append([6, 'RISCV/gem5.opt', runOpt, 'stream', ''])
-#experimentList.append([7, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'stream', ''])
-#experimentList.append([7, 'RISCV/gem5.opt', runOpt + rekMOpt, 'stream', ''])
-#experimentList.append([8, 'RISCV/gem5.opt', runOpt + rekHOpt, 'stream', ''])
+#experimentList.append([20, 'RISCV/gem5.opt', runOpt, 'stream', ''])
+#experimentList.append([21, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'stream', ''])
+#experimentList.append([22, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'stream', ''])
+#experimentList.append([23, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'stream', ''])
 
 ## STEP3 docDist/mrsFast
 
+
 ## STEP4 SPEC2017
-SPECOpt = ' --benchmark=%s \
-            --simpt-ckpt=%d \
-            --checkpoint-restore=1 --at-instruction'
+SPECOpt = ' --benchmark=%s --simpt-ckpt=%d \
+            --checkpoint-restore=1 --at-instruction \
+            --maxinsts=50000000 --warmup-insts=1000000'
 from SPECList import SPECList
 #SPECList = []
-SPECList = [[11, "blender_r", 0]]
+SPECList = [[0, "blender_r", 0]]
 
 for i, name, simptID in SPECList:
-  experimentList.append([i, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + ROIOpt, 'SPEC2017-ckpt', ''])
+  experimentList.append([i+1000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID), 'SPEC2017', ''])
+  experimentList.append([i+2000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekHOpt, 'SPEC2017', ''])
+  experimentList.append([i+3000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekMOpt, 'SPEC2017', ''])
 
-
-#----------------------
+#-------------------- 3/3 Run Config Begin --------------------
 
 
 def initClient(RUN_MODE):

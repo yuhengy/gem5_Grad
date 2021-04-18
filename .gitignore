@@ -35,4 +35,4 @@ configs/dram/lowp_sweep.cfg
 ## check point
 cpt.*
 ## SPEC
-SPEC2017-ckpt
+SPEC2017
