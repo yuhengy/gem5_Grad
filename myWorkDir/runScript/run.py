@@ -6,6 +6,7 @@ import time
 RUN_MODE = "singleProc" # singleProc, multiProc
 
 REDIRECT_TERMINAL_OUTPUT = False
+COMPILE_APP = True
 #-------------------- 1/3 Run Config End --------------------
 
 
@@ -127,16 +128,17 @@ if __name__ == "__main__":
   # STEP0 compile
   for index, binary, config, app, _ in experimentList:
     os.makedirs(GEM5_DIR + '/myWorkDir/result/' + str(index) + '-' + app, exist_ok=True)
-    
-    if app == 'SPEC2017':
-      continue
+      
+    if COMPILE_APP:
+      if app == 'SPEC2017':
+        continue
 
-    if binary[0] == "R":
-      os.system('ISA=riscv CCPRE=riscv64-linux-gnu- make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
-    elif binary[0] == "X":
-      os.system('ISA=X86 CCPRE=x86_64-linux-gnu- make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
-    else:
-      assert(False)
+      if binary[0] == "R":
+        os.system('ISA=riscv CCPRE=riscv64-linux-gnu- make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
+      elif binary[0] == "X":
+        os.system('ISA=X86 CCPRE=x86_64-linux-gnu- make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
+      else:
+        assert(False)
 
   # STEP1 init the cluster or multiProcess
   if not RUN_MODE == "singleProc":
