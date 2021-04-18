@@ -89,6 +89,14 @@ def initClient(RUN_MODE):
   # STEP1 choose a cluster
   if RUN_MODE == "multiProc":
     cluster = LocalCluster(threads_per_worker=1, local_directory="/tmp")
+  
+  elif RUN_MODE == "slurmCluster":
+    from dask_jobqueue import SLURMCluster
+
+    cluster = SLURMCluster(cores=64, processes=64, memory="250G", interface="ib0", walltime="24:00:00", local_directory="/tmp")
+    #cluster.adapt(minimum_jobs=1, maximum_jobs=2, wait_count=100)
+    cluster.scale(jobs=6)
+  
   else:
     assert(False)
 
