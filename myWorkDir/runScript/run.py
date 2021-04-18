@@ -120,9 +120,9 @@ if __name__ == "__main__":
       continue
 
     if binary[0] == "R":
-      os.system('ISA=riscv CC=riscv64-linux-gnu-gcc make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
+      os.system('ISA=riscv CCPRE=riscv64-linux-gnu- make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
     elif binary[0] == "X":
-      os.system('ISA=X86 CC=x86_64-linux-gnu-gcc make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
+      os.system('ISA=X86 CCPRE=x86_64-linux-gnu- make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
     else:
       assert(False)
 

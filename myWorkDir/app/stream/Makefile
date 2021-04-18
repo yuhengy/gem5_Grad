@@ -4,7 +4,7 @@ all: stream
 
 stream: stream.c
 	$(shell mkdir -p build)
-	$(CC) $(CFLAGS) stream.c -lm5 -o build/stream
+	$(CCPRE)gcc $(CFLAGS) stream.c -lm5 -o build/stream
 
 clean:
 	rm -rf build
