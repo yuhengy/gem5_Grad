@@ -1,0 +1,193 @@
+'''NOTE:''' The following predates passing of [http://www.justice.gc.ca/eng/rp-pr/other-autre/rsddp-rlddp/index.html Bill C-26 (S.C. 2012 c. 9)], which revised this section.
+
+==Legislation==
+
+{{quotation|
+'''Self-defence against unprovoked assault'''<br>
+34. (1) Every one who is unlawfully assaulted without having provoked the assault is justified in repelling force by force if the force they use is not intended to cause death or grievous bodily harm and is no more than is necessary to enable him to defend himself.
+<br>
+'''Extent of justification'''<br>
+(2) Every one who is unlawfully assaulted and who causes death or grievous bodily harm in repelling the assault is justified if
+:(a) they cause it under reasonable apprehension of death or grievous bodily harm from the violence with which the assault was originally made or with which the assailant pursues his purposes; and
+:(b) they believes, on reasonable grounds, that he cannot otherwise preserve himself from death or grievous bodily harm.<br>
+
+'''Self-defence in case of aggression'''<br>
+35. Every one who has without justification assaulted another but did not commence the assault with intent to cause death or grievous bodily harm, or has without justification provoked an assault on himself by another, may justify the use of force subsequent to the assault if
+:(a) they use force
+::(i) under reasonable apprehension of death or grievous bodily harm from the violence of the person whom he has assaulted or provoked, and
+::(ii) in the belief, on reasonable grounds, that it is necessary in order to preserve himself from death or grievous bodily harm;
+:(b) they did not, at any time before the necessity of preserving himself from death or grievous bodily harm arose, endeavour to cause death or grievous bodily harm; and
+:(c) they declined further conflict and quitted or retreated from it as far as it was feasible to do so before the necessity of preserving himself from death or grievous bodily harm arose.<br>
+
+'''Provocation'''<br>
+36. Provocation includes, for the purposes of sections 34 and 35, provocation by blows, words or gestures.
+<br>
+'''Preventing assault'''<br>
+37. (1) Every one is justified in using force to defend himself or any one under his protection from assault, if they use no more force than is necessary to prevent the assault or the repetition of it.
+<br>
+'''Extent of justification'''<br>
+(2) Nothing in this section shall be deemed to justify the wilful infliction of any hurt or mischief that is excessive, having regard to the nature of the assault that the force used was intended to prevent.
+<br>
+|[http://canlii.org/en/ca/laws/stat/rsc-1985-c-c-46/latest/rsc-1985-c-c-46.html#sec37 CCC]
+}}
+
+==Proof of Defence==
+For all the offences the burden is on the Crown to prove beyond a reasonable doubt the defence does not apply<ref>
+R v Cinous 2002 SCC 29<br>
+R v Ryan 2011 NLCA 9 - in relation to s.34(2)
+</ref>
+
+{{Reflist|2}}
+===Unprovoked assault: s.34(1)===
+The crown has the burden of disproving<ref>R. v. Cinous 2002 SCC 29 at 39</ref> at least one of the elements of the defence beyond a reasonable doubt:<ref>see R. v. C. J. O. [2005] CanLII 43518 [http://canlii.org/en/on/onsc/doc/2005/2005canlii43518/2005canlii43518.html#par21]<Br>
+R. v. Grandin 2001 BCCA 340 at 35 [http://canlii.org/en/bc/bcca/doc/2001/2001bcca340/2001bcca340.html#par35]<br>
+R. v. Bailey (2010), 253 C.C.C. (3d) 509 at 26 [http://canlii.ca/t/290rl#par26]</ref>
+# accused made no provocations 
+# assault by the victim on the defendant
+# no intention by the defendant to cause death or grievous bodily harm at time of assault
+# no more force than is necessary to self-defence
+
+===Assault Causing: s.34(2)===
+#the accused was assaulted;
+#the accused caused death or grievous bodily harm; 
+# the caused result was done in repelling an assault;
+# the accused was under a reasonable apprehension of death or grievous bodily harm by the initial assailant;
+# the accused believed on, reasonable grounds, that he could not otherwise preserve himself from death or grievous bodily harm.
+# the accused apprehended imminent danger
+
+===Provoked assault: s.35===
+# the accused assaulted a person
+# the accused did not assault intending to cause death or grievous bodily harm or has not provoked the assault
+# the accused used force where:
+## he was under a reasonable apprehension of death or grievous bodily harm from the person assaulted and 
+## the accused had a reasonable belief that the assault was necessary to preserve himself from death or grievous bodily harm.
+# the accused, at any time before the necessity of preserving himself, did not endeavour to cause death or grievous bodily harm;
+# the accused avoided conflict as far as it was feasible before the necessity arose.
+
+
+{{Reflist|2}}
+===Preventing assault: s.37===
+The crown has the burden of disproving at least one of the elements of the defence beyond a reasonable doubt:<ref>
+R. v. McIntosh [http://canlii.ca/t/1frn3 1995 CanLII 124] (SCC), (1995), 95 C.C.C. (3d) 481<br>
+R. v. Grandin, [http://canlii.ca/t/4zch 2001 BCCA 340] at 36 <br>
+</ref>
+# force was for the purpose of preventing an assault on self or person under his protection.<ref>
+R. v. Shannon, [http://www.canlii.org/en/bc/bcca/doc/1981/1981canlii332/1981canlii332.html 1981 CanLII 332] (BC CA) <br>
+R. v. Thomas,  [http://www.canlii.org/en/bc/bcca/doc/2002/2002bcca612/2002bcca612.html 2002 BCCA 612]
+</ref>
+# no more force than '''necessary''' to prevent assault or repetition having regard to the nature of assault to be prevented<Ref>R v McIntosh 1995 CanLII 124 (SCC) at 44</ref>
+# the force was '''proportionate''' to the danger threatened.<ref>McIntosh, ibid. at 44</ref>
+
+==Application==
+===Unprovoked: s.34(1)===
+Section s.34(1) of the Criminal Code justifies the use of repelling force by force if the force he used was not intended to cause death or grievous bodily harm and was no more than was necessary to enable him to defend himself.  The onus is on the Crown to prove beyond a reasonable doubt that self-defence under s.34 is not available to the accused. <ref>
+Latour v. R., [http://canlii.ca/t/1ttv4 1950 CanLII 12], [1951] S.C.R. 19<br> 
+R. v. Nadeau, [http://canlii.ca/t/1lpfv 1984 CanLII 28], [1984] 2 S.C.R. 570 <br>
+R. v. Westhaver, [1992] N.S.J. 511 (N.S.C.A.)  
+</ref>
+
+The fact that the accused does not retreat from a confrontation does not preclude him from relying on s.34.<ref> 
+R. v. Deegan (1979), 17 A.R. 187 (Alta. C.A.)<br>
+R. v. Westhaver (1992), 119 N.S.R. (2d) 171 at para. 8
+</ref> 
+Likewise, an accused does not need to be reduced to a state of frenzy <ref>R. v. Antley, [1964] 2 C.C.C. 142 (Ont. C.A.)</ref> and the accused does not need to rely upon detached reflection of his options where circumstances do not allow.<ref>R. v. Kandola, [http://canlii.ca/t/1db1x 1993 CanLII 774] (BC C.A.)</ref>
+
+Grievous bodily harm can include sexual assault.<ref>  
+R. v. X.J., [http://canlii.ca/t/fslbv 2012 ABCA 69] (CanLII) at para. 11
+</ref>
+
+{{reflist|2}}
+===Causing: s.34(2)===
+Section 34(2) is available regardless of whether the assault was provoked.<ref>R. v. McIntosh, [http://canlii.ca/t/1frn3 1995 CanLII 124] (SCC), [1995] 1 S.C.R. 686 at para. 42</ref>
+
+There is no requirement that the force be no more than is necessary to defend against the assault.<ref>
+R. v. Siu [http://canlii.ca/t/1d9n5 1992 CanLII 1014] (BC CA), (1992), 71 C.C.C. (3d) 197 at 209, 12 C.R. (4th) 356 (BCCA)<br>
+</ref>
+
+Though not explicitly stated in the s. 34(2)(a), a further requirement that the accused have apprehend imminent danger at the time of the assault has been read into the defence.<ref> 
+see R. v. Reilly [http://canlii.ca/t/1txk7 1984 CanLII 83] (SCC), (1984), 15 C.C.C. (3d) 1<br>
+R. v. Baxter (1975), 33 C.R.N.S. 22, 27 C.C.C. (2d) 96 (Ont. C.A.)<br> 
+R. v. Bogue (1976), 13 O.R. (2d) 272, 30 C.C.C. (2d) 403, 70 D.L.R. (3d) 603 (C.A.)
+</ref>
+
+{{reflist|2}}
+
+====Retreat====
+A person is not required to retreat from his home.<ref>
+R. v. Forde, 2011 ONCA 592 (CanLII)<br>
+R. v. Docherty, [http://canlii.ca/t/ftss4 2012 ONCA 784] (CanLII)</ref>
+
+{{reflist|2}}
+
+===Preventing: s.35===
+
+===Preventing: s.37===
+Everyone may use force to defend themselves or someone in their protection.
+
+
+This right does not extend to retaliation where the accused's self-preservation is not in peril.<ref>Brisson v. The Queen, [http://canlii.ca/t/1z1cq 1982 CanLII 196] (SCC), [1982] 2 S.C.R. 227.</ref>
+
+{{reflist|2}}
+
+===No more than reasonably necessary===
+
+The words "no more force than is necessary" can be equated with the requirement of the force being "reasonable in all the circumstances" <ref>R. v. Gunning, [http://canlii.ca/t/1kt5b 2005 SCC 27] at para 25</reF> Force that is "clearly disproportionate to what was required under the circumstances" must fail.<Ref>R v McKay [http://canlii.ca/t/23s3r 2009 MBCA 53] - in relation to 41(1)</ref>
+
+The force must be considered reasonable in all the circumstances including the accused's subjective belief as to the nature of the harm or danger, but the objective component of the defence is also required.<reF> R v Szcerbaniwicz [http://canlii.ca/t/29k4c 2010 SCC 15] at 20 and 21<br> R v Philpott 2011 N_SC at 42</ref>
+
+{{reflist|2}}
+
+==Upcoming Amendment==
+On a date yet to be set by Order in Council, Bill C-26, Citizen’s Arrest and Self-defence Act, will replace s. 34 to 42 with the following:
+
+{{quotation|
+34. (1) A person is not guilty of an offence if
+:(a) they believe on reasonable grounds that force is being used against them or another person or that a threat of force is being made against them or another person;
+:(b) the act that constitutes the offence is committed for the purpose of defending or protecting themselves or the other person from that use or threat of force; and
+:(c) the act committed is reasonable in the circumstances.<br>
+
+'''Factors'''<br>
+(2) In determining whether the act committed is reasonable in the circumstances, the court shall consider the relevant circumstances of the person, the other parties and the act, including, but not limited to, the following factors:
+:(a) the nature of the force or threat;
+:(b) the extent to which the use of force was imminent and whether there were other means available to respond to the potential use of force;
+:(c) the person’s role in the incident;
+:(d) whether any party to the incident used or threatened to use a weapon;
+:(e) the size, age, gender and physical capa- bilities of the parties to the incident;
+:(f) the nature, duration and history of any relationship between the parties to the incident, including any prior use or threat of force and the nature of that force or threat;
+:(f.1) any history of interaction or communication between the parties to the incident;
+:(g) the nature and proportionality of the person’s response to the use or threat of force; and
+:(h) whether the act committed was in response to a use or threat of force that the person knew was lawful.<br>
+
+'''No defence'''<br>
+(3) Subsection (1) does not apply if the force is used or threatened by another person for the purpose of doing something that they are required or authorized by law to do in the administration or enforcement of the law, unless the person who commits the act that constitutes the offence believes on reasonable grounds that the other person is acting unlawfully.
+<br>
+...<br>
+35. (1) A person is not guilty of an offence if
+:(a) they either believe on reasonable grounds that they are in peaceable possession of property or are acting under the authority of, or lawfully assisting, a person whom they believe on reasonable grounds is in peaceable possession of property;
+:(b) they believe on reasonable grounds that another person
+::(i) is about to enter, is entering or has entered the property without being entitled by law to do so,
+::(ii) is about to take the property, is doing so or has just done so, or
+::(iii) is about to damage or destroy the property, or make it inoperative, or is doing so;
+:(c) the act that constitutes the offence is committed for the purpose of
+::(i) preventing the other person from entering the property, or removing that person from the property, or
+::(ii) preventing the other person from taking, damaging or destroying the property or from making it inoperative, or retaking the property from that person; and
+:(d) the act committed is reasonable in the circumstances.<br>
+
+'''No defence'''<br>
+(2) Subsection (1) does not apply if the person who believes on reasonable grounds that they are, or who is believed on reasonable grounds to be, in peaceable possession of the property does not have a claim of right to it and the other person is entitled to its possession by law.
+<br>
+'''No defence'''<br>
+(3) Subsection (1) does not apply if the other person is doing something that they are required or authorized by law to do in the administration or enforcement of the law, unless the person who commits the act that constitutes the offence believes on reasonable grounds that the other person is acting unlawfully.
+
+|[http://canlii.ca/t/7vf2#35 CCC]
+ }}
+
+==Digests==
+* R. v. M.M., 2012 BCPC 72 -- self-defence under s.37 unsuccessful
+* R. v. J.E.S.,  [http://www.canlii.org/en/ns/nssc/doc/2009/2009nssc373/2009nssc373.html 2009 NSSC 373] - self-defence successful; victim attacked accused twice, accused stabbed him with knife.
+* R. v. Labrador,  [http://www.canlii.org/en/ns/nspc/doc/2006/2006nspc28/2006nspc28.html 2006 NSPC 28] - self-defence successful
+* R. v. Forde,  [http://www.canlii.org/en/on/onca/doc/2011/2011onca592/2011onca592.html 2011 ONCA 592] - appeal based on self-defence successful
+* R. v. Spadafora,  [http://www.canlii.org/en/on/oncj/doc/2012/2012oncj23/2012oncj23.html 2012 ONCJ 23] -- acquitted
+
+{{BookCat}}
+[[Category:Canadian Criminal Defences|Self-Defence]]

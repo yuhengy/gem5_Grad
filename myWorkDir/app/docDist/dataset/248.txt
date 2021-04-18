@@ -1,0 +1,217 @@
+{{Digital Circuits Page}}
+
+In the previous chapter we learned what digital information is. Digital information is represented as bits, which can take on values of either 1 or 0. In this chapter we begin to explore how to perform calculations and do other work using digital information.
+
+Much of what we will be discussing was formalized by [[:w:George Boole|George Boole]] (1815–1864) in his paper ''An Investigation of the Laws of Thought, on Which Are Founded the Mathematical Theories of Logic and Probabilities'', published in 1854. It had few applications at the time, but eventually scientists and engineers realized that his system could be used to create efficient computer logic. The branch of mathematics involving digital logic is aptly named Boolean Algebra.
+
+== Basic Operators ==
+
+Digital logic has three basic operators, the AND, the OR and the NOT. These three operators form the basis for everything in digital logic. In fact, almost everything your computer does can be described in terms of these three operations. Fortunately, these operations are not difficult to understand, as their meanings resemble the meanings of the words as used in every day language.
+
+=== AND ===
+
+The symbol for an AND operator is a single dot. A mathematical expression using AND looks like this.
+
+<math>A \cdot B</math>
+
+The value of an AND expression is 1 only if both input values are 1. Otherwise, the value is 0. That is, the above expression equals 1 if and only if A '''and''' B are 1. The AND operator
+ can be described with the following truth table.
+
+{{Truthtable2|<math>A</math>|<math>B</math>|<math>A \cdot B</math>|0|0|0|1}}
+
+=== OR ===
+
+The symbol for the OR operator is a plus sign. A mathematical expression using OR looks like this.
+
+<math>A + B</math>
+
+The value of an OR expression is 0 only if both the input values are 0. Otherwise the values is 1,that is the above expression equals only if A and B is 0. The truth table for the OR operator
+{{Truthtable2|<math>A</math>|<math>B</math>|<math>A + B</math>|0|1|1|1}}
+
+=== NOT ===
+
+NOT is a unary operator, which requires only single input, while as AND and OR are binary operators as they require two values as input.
+Symbol for NOT operator. <math>\overline{A}</math> or '''A''''
+
+The value of a NOT expression is the opposite value of the input value.
+
+{{Truthtable1|<math>A</math>|<math>\overline{A}</math>|1|0}}
+
+==NAND and NOR==
+
+If the AND, OR and NOT operators are combined, then the NOR and NAND can be created:
+*A NAND B is <math>\overline{A \cdot B}</math>. This is the inverted output of the AND gate.
+*A NOR B is <math>\overline{A+B}</math>. This is just the inverted output of an OR gate.
+
+{| style="text-align:center" align=center
+! NAND !! NOR
+|-
+|<math>Q=\overline{X \cdot Y}</math>
+|<math>Q=\overline{X + Y}</math>
+|-
+|{{Truthtable2|X|Y|Q|1|1|1|0}}
+|{{Truthtable2|X|Y|Q|1|0|0|0}}
+|}
+
+==XOR and XNOR==
+
+Two other important gates are the exclusive-OR and exclusive -NOR operators, XOR and XNOR. This is sometimes denoted by a plus sign in a circle.
+*A XOR B is <math>\overline{A} \cdot B + A \cdot \overline{B} = A \oplus B </math>. This is true only if exactly one of the inputs is one.
+*A XNOR B is <math>\overline{\overline{A} \cdot B + A \cdot \overline{B}} = \overline{A \oplus B}</math>. This is the inverted output of an XOR gate: it is only true if both input are the same.
+
+{| style="text-align:center" align=center
+! XOR !! XNOR
+|-
+|<math>Q={X \oplus Y}</math>
+|<math>Q=\overline{X \oplus Y}</math>
+|-
+|{{Truthtable2|X|Y|Q|0|1|1|0}}
+|{{Truthtable2|X|Y|Q|1|0|0|1}}
+|}
+
+XOR represents a modulo-2 addition, which means that if you add 1 to 1, you wrap around back to 0. This is very useful function in digital electronics, but it is not an important concept in Boolean algebra.
+
+==Formal Mathematical Operators==
+
+In the field of logic, which is part of discrete mathematics, there is an alternative notation to the addition/multiplication type we have seen:
+
+*AND is represented by <math>\wedge</math> Therefore <tt>A AND B</tt> would be <math>A \wedge B</math>.
+*OR is represented by <math>\vee</math> Therefore <tt>A OR B</tt> would be <math>A \vee B</math>.
+*NOT is represented by <math>\lnot</math>. Therefore <tt>NOT A</tt> is <math>\neg A</math>.
+
+Unfortunately, computer science, engineering and mathematics seem unable to establish a consensus, so we are stuck with both forms of notation.  Other books, and especially those that deal more with pure logic or discrete mathematics may have various notations, so if other books are consulted, then the other notation needs to be known. As this is an engineering book, we will not use this notation.
+
+==Boolean Algebra Laws==
+
+Boolean Algebra, like regular algebra, has certain rules. These rules are Associativity, Distributivity, Commutativity and De Morgan's Laws. Associativity, Commutativity and Distributivity only apply to the AND and OR operators. Some of these laws may seem trivial because you are so used to them. However, when Boolean algebra was created with its different rules, every axiom we take for granted in "normal" algebra no longer was guaranteed to apply. These laws have been proved to hold under Boolean algebra.
+
+====Associativity====
+{{Wikipedia|Associativity}}
+Associativity is the property of algebra that the order of evaluation of the terms is immaterial.
+
+:<math>A+(B+C) \iff (A+B)+C \,</math>
+:<math>A \cdot(B \cdot C) \iff (A\cdot B) \cdot C \,</math>
+
+====Distributivity====
+{{Wikipedia|Distributivity}}
+Distributivity is the property that an operator can be applied to each of the terms within the brackets.
+
+:<math>A \cdot (B+C) \iff (A \cdot B)+(A \cdot C) \,</math>
+:<math>A+(B \cdot C ) \iff (A+B) \cdot (A + C) \,</math>
+
+====Commutativity====
+{{Wikipedia|Commutativity}}
+Commutativity is the property that order of application of an operator is immaterial.
+:<math>A \cdot B \iff B \cdot A \,</math>
+:<math>A+B \iff B+A \,</math>
+
+====De Morgan's Law====
+{{Wikipedia|De Morgan's Law}}
+De Morgan's Law is a consequence of the fact that the NOT or negation operator is not distributive.
+
+:<math>\overline{P \cdot Q} \iff \overline {P}+ \overline {Q}</math>
+:<math>\overline{P+Q} \iff \overline {P} \cdot \overline {Q}</math>
+
+De Morgan's laws (named after [[:w:Augustus De Morgan|Augustus De Morgan]], 1806–1871) tell us: a NAND gate gives the same output as an OR gate with inputs complemented; a NOR gate gives the same output as an AND gate with inputs complemented. These complemented-input gates are also known as bubbled gates because of the way that they are indicated on a symbol, i.e., by including a small 'bubble' on each input, in the same fashion that circles are drawn on the outputs of the NOT, NAND and NOR gates.
+
+[[image:DeMorganGates.GIF]]
+
+[[image:baops.gif]]
+
+De Morgan's laws are the most useful while simplifying a boolean expression. An easy way to remember these laws is "Change the sign, break the line".
+
+{{Digital Circuits/Exercise
+|
+|By constructing the appropriate truth tables, verify the laws of:
+#Associativity of the AND operator,
+#Ditributivity of the OR operator,
+#Commutativity of the OR operatar,
+#De Morgan's Law for the NAND operator.
+| 
+#We see that the truth tables for 
+#
+#
+#
+}}
+
+===Operator precedence===
+It is important to note that
+:<math>A \cdot B+C \ne A \cdot (B+C)</math>
+This can be seen as either AND having a higher precedence or the fact that associativity does not hold between AND and OR or that it is an invalid application of distributivity.
+
+Another way of looking at this is the application of our understanding of normal algebra, where the analogy between OR being addition and AND being multiplication is made.  We would never make this error if this were normal algebra with numbers rather than Boolean entities.
+
+===Other Rules===
+
+All of these laws result in a number of rules that apply to all Boolean expressions. These laws have names, but it is only important that you are able to apply them where needed! Note that many rules have two forms - this called duality, and we will discuss it later.
+
+{| class=wikitable style="text-align:center; margin: 1em auto 1em auto"
+!width=40| !!width=100|Name !! Rule
+|-
+| 1a ||rowspan = 2 | Idempotency ||<math>A \cdot A=A \,</math> 
+|-
+| 1b || <math>A+A=A \,</math>
+|-
+| 2a ||rowspan = 2 | Identity ||<math>A+0=A \,</math> 
+|-
+| 2b || <math>A \cdot 1 = A \,</math>
+|-
+| 3a ||rowspan = 2 | Boundedness ||<math>A+1=1 \,</math> 
+|-
+| 3b || <math>A \cdot 0 = 0 \,</math>
+|-
+| 4a ||rowspan = 2 | Complement Laws ||<math>A+\overline{A}=1 \,</math> 
+|-
+| 4b || <math>A \cdot \overline{A} = 0 \,</math>
+|-
+| 5a ||rowspan = 2 | Absorption ||<math>A+(A \cdot B) = A \,</math> 
+|-
+| 5b || <math>A \cdot (A + B) = A \,</math> 
+|-
+| 6  || Involution or Double Negation ||<math>\overline{\overline{\,A}}=A</math>
+|-
+| 7a || rowspan = 2 | Consensus Theorem ||<math>A\cdot B+\overline{A}\cdot C + B\cdot C = A\cdot B + \overline{A}\cdot C</math>
+|-
+| 7b || <math>(A+B)\cdot (\overline{A}+C) \cdot (B+C) = (A+B)\cdot (\overline{A}+C)</math>
+|}
+
+===Principle of Duality===
+The principle of duality tells us: If, in a boolean equation, we interchange the AND and OR operators and interchange '0' with '1' then the resultant boolean equation is also true.
+
+;Example 1:
+:If we are aware that <tt>A·(B+C)=(A·B)+(A·C)</tt> (law of distributivity of the AND operator) then by the principle of duality, we can say that <tt>A+(B·C)=(A+B)·(A+C)</tt> (law of distributivity of the OR operator).
+
+;Example 2:
+:Consider the identity law for the OR operator: <tt>A+0=A </tt>. Applying duality, we get the identity law for the AND operator: <tt>A·1=A</tt>.
+
+==Boolean Simplification==
+
+It is often the case that you want to simplify a given Boolean function. For example, you might want to reduce the number of logic gates required to implement that particular function. Simplification is done by repeated application of the rules and laws of Boolean algebra. Bear in mind that you sometimes have to apply them backwards to get the minimal form. NAND, NOR, XOR and XNOR all need to be expanded to just AND, OR and NOT in order for simplification to work.
+
+[[Digital Circuits/Karnaugh Maps|Karnaugh Maps]] are a more formal way of doing this for the guaranteed smallest form, but we will do it by hand for now.
+
+===Examples===
+
+Simplify the following expressions.
+#<math>B \cdot A \cdot \overline {A}</math>
+#<math>A \cdot \overline {B} + A \cdot B</math>
+
+====Example 1====
+
+Using rule 4b, we get:
+:<math>B = 0 \,</math>
+
+This is directly rule 5, so <math>B \cdot A \cdot \bar {A} = 0</math>
+
+====Example 2====
+
+Using distributivity, we can take A out of the brackets, giving 
+:<math>A \cdot (\overline{B} + B)</math>
+
+Using rule 4a, we see that:
+:<math>A \cdot 1 = A</math>
+
+We therefore see that <math>A \cdot \overline {B} + A \cdot B = A</math>
+
+==See also==
+*[[w:Boolean logic|Wikipedia: Boolean logic]]

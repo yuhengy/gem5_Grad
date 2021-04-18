@@ -1,0 +1,75 @@
+[[../Some_Cocoa_essential_principles|Previous Page: Some Cocoa essential principles]] | [[../Containers_-_arrays%2C_and_dictionarys|Next Page: Containers - arrays, and dictionaries]]
+
+So far we have used Interface Builder to create a very simple interface for our "hello world" example. Now we'll look at it in a bit more detail so that we can see how to build much more complex and useful user interfaces.
+
+==Building a GUI==
+
+We have already discussed the concept of targets and actions in a very general way; now we'll see how Interface Builder makes extensive use of this to connect graphical controls to pieces of code that you write which implement the interesting functionality of your application.
+
+Using "hello world" as a starting point, let's add a simple action to our code so that we can see how this works. The action is very basic - it just sets the font size of the text as a slider control is moved. In Xcode, click on "GCHelloView.h" so that it appears in the editor. Now add the following line to the class definition, below the other methods, but before the '@end' statement:
+
+ - (IBAction)	textSizeAction:(id) sender;
+
+Then do a Save to make sure this change is saved to the file. Here, we have declared the return type of the method to be IBAction. In fact, this is just a macro which is just 'void', but anything tagged as IBAction can be automatically detected by Interface Builder as an ''action routine'', that is, one which can be connected to any control that supports the target/action mechanism. We'll come back to Xcode in a moment to implement this method, but first let's hook it up in IB.
+
+If IB isn't running, start it by double-clicking on 'MainMenu.nib'. Arrange the window in IB so that you can drag the file "GCHelloView.h" from Xcode to IB. This triggers IB to read the file, and so it will pick up the action method and add it to a list of available actions for the GCHelloView object. Next, switch back to the 'Instances' panel, and bring Window to the front by double-clicking its icon (or just click the window if you can see it). Make a bit of room at the bottom of the window by dragging it a little bigger. In the widgets palette, select the Controls panel (second from the left), and drag a horizontal slider control from the palette into the window. Make sure you put the slider in the space you made, not into the GCHelloView.
+
+Select the slider control, and open the Inspector (Tools->Show Inspector if it's not visible). Make sure the pop-up menu is set to 'Attributes'. Set the attributes as follows:
+
+* minimum - 9.0
+* maximum - 72.0
+* current - 48.0
+
+Also, check the boxes 'Continuously send action while sliding' and 'Enabled'. The other settings should remain at their default values.
+
+Next we need to give the slider control a target - that is, a connection to the object it should send the action to. IB sets up targets graphically. We control-drag FROM the sender of the action TO the target. A line will be drawn linking the two. Do that now - control-drag FROM the slider TO the GCHelloView. The Inspector will switch to the 'Connections' section and list all of the available action methods for GCHelloView. Highlight 'textSizeAction:' and click 'Connect' to make the connection. (Note - if textSizeAction: doesn't appear in the list, you can add it manually. Select GCHelloView in the 'Classes' list. Use the Inspector Attributes to switch to 'Actions', click 'Add', then type the name of the method - don't forget the colon! You might need to do this, since the earlier dragging of the file into IB, which should handle this for you, doesn't always seem to work reliably. Once you've added the method, try again with the control-drag step).
+
+Save the changes, then return to Xcode. We now need to implement the action method. Find and select the GCHelloView.m file. Add the following method to the body of the implementation:
+
+<pre>
+ - (IBAction)	textSizeAction:(id) sender
+ {
+	[self setText:[self text] withSize:[sender floatValue]];
+ }
+</pre>
+
+[[image:HWvers2.png|thumb|right|350px|Extended version of "Hello World" with slider control]]
+Now Build and run the project. Drag the slider... the text should change size as you drag.
+
+The above line implements the action. It is called whenever the slider is dragged to a new position, and sends a message to its own setText:withSize: method, passing the existing text ([self text]) and a size which is obtained from the slider's value itself. We set up the range of values in IB to be from 9 to 72 - this becomes the point size of the text. The 'sender' parameter to an action method is always the object that caused the action - in this case the slider. So we can simply call its 'floatValue' method to find out its current value, and simply pass that along as the text size. The change is immediately visible as you drag because we earlier added the line [self setNeedsDisplay:YES] to our setText:withSize: method, which causes Cocoa to call our drawRect: method, which redraws the text using the new size.
+
+While simple, this example is very typical of how all controls interface to pieces of code in your application. You write an action method (which always has an IBAction return type, and a single 'sender' object parameter) in some suitable target object, then hook up that action and target in IB.
+
+==Menu commands==
+
+Menu commands work pretty much the same way as sliders or buttons. They have a target and an action. When the menu item is chosen, it sends the action to the target. You can set them up exactly like we did for the slider - control-drag FROM the menu item TO the target, select the action and click 'Connect'.
+
+There are times when we don't want a menu command to go to a specific fixed target however, but one that depends on the context. For example, we might have an application with multiple similar windows open, such as a document. When the user chooses the 'Copy' or 'Paste' command, it should always target the currently active document. If we had tied this menu command to a specific target, these commands would not work as the user generally expects.
+
+To fix this, Cocoa maintains a 'chain of command' which changes depending on the context. The frontmost window will contain a target which should be the first to respond to a command. If it can, it responds. If not, the command passes to the next object in the chain, which might be another view within the window, or the window itself. If the command can be handled, it is. If not, it passes up again, this time to the application object. If the application can't handle the command, it is discarded and ignored.
+
+The first object in the chain that can respond to a command at any particular moment is called the '''first responder''', and an icon representing this object is shown in the main IB window. So all we need to do is to make it the target of our action, and we have solved the problem of changing targets for menu items. You'll find you can control-drag to this target just as any other targettable object. The 'Actions' list for the first responder lists all of the actions for all objects known to IB. You can link to any action. If the action is found within the current chain of command, the action will find its target and be executed. If the particular action can't be found in the chain of command at a particular time, what happens? Well, if the action is sent, nothing happens, because no-one responds to it, but in fact in this case Cocoa disables the menu item automatically! Thus actions that can't find a target are automatically greyed out, saving us a large part of the job of managing menu enabling as the context changes.
+
+"Hello World" doesn't have multiple windows, so at this stage we can't demonstrate this convincingly, but shortly we'll be making a much more sophisticated application, and this approach will come into its own.
+
+==Resizing Windows==
+
+Run "Hello World". Try resizing the window. It's probably not the behaviour you would expect - everything remains at a fixed distance from the bottom. Let's look at how we make views size the way we want them.
+
+In Interface Builder, bring Window to the front and select the GCHelloView. Using the Inspector, switch to the 'Size' panel using the pop-up menu. The diagram there indicates which edges of the view should be rigidly linked to the edges of the window, and which can be flexible. By clicking on the links, you can change them from one to the other. GCHelloView should probably change size along with the window, so change the interior links to be flexible, and the exterior ones to be rigid. Now select the slider. Allow it to have a flexible link to the top and right edges, but a rigid link to the left and bottom edges. The interior should be rigid. Save the file and use Xcode to build and run the project. Now, you'll see that the GCHelloView (as shown by its blue border) stretches as you resize the window.
+
+You'll probably notice that the text however, still doesn't seem to behave as we'd probably like, being a fixed distance from the bottom edge of the view. We are used to text remaining at a fixed distance from the TOP edge. The reason for this is that Cocoa's default coordinates follow the underlying Quartz graphics system, in which increasing y values go UP the screen, not down. While this is the mathematical convention, computer programmers are usually used to having things the other way up. Cocoa can allow any view to be ''flipped'' in this manner, using a simple override. So let's change it now.
+
+In Xcode, select GCHelloView.m and add the following method to the implementation:
+<pre>
+ - (BOOL)  isFlipped
+ {
+     return YES;
+ }
+</pre>
+
+This is an override of an NSView method, so we don't need to declare it in our class. We simply return YES to let Cocoa know we'd like this view to have the y coordinate go from top to bottom. Build and run again and you'll see the difference this makes. Because of the choice of y coordinate used in drawRect:, the text will be fairly far down the view - you might like to change that to something like 10 so it's near the top.
+
+[[../Some_Cocoa_essential_principles|Previous Page: Some Cocoa essential principles]] | [[../Containers_-_arrays%2C_and_dictionarys|Next Page: Containers - arrays, and dictionaries]]
+
+{{BookCat}}

@@ -1,0 +1,67 @@
+This is an analysis of the journal article "Aerobic Exercise and Early Parkinson's Disease" by Bridgewater and Sharpe. (1996).<ref name="ref_name">Bridgewater, K. & Sharpe, M. (1996). Aerobic Exercise and Early Parkinson's Disease. Neurorehabilitation And Neural Repair, 10(4), 233-241.</ref>
+
+[[File:The step.jpg|thumb|right|A classic piece of equipment used in aerobic classes.]]
+
+== What is the background to this research?==
+
+Parkinson's Disease (PD) is a degenerative neurological condition that affects a persons ability to control their movement through a decline in dopamine availability.<ref name="Vic">Parkinson's Disease - Conditions and Treatments. (2016). Better Health. https://www.betterhealth.vic.gov.au/health/conditionsandtreatments/parkinsons-disease</ref> PD is not known to be fatal nor contagious, however it is still quite prevalent with over 70,000 Australians living with the disease.<ref>What is Parkinson's. (2016). Parkinsons.org.au. http://www.parkinsons.org.au/what-is-parkinsons</ref> There is little understanding as to how PD develops but it is thought that multiple factors such as pesticides and toxins or genetics are major contributors.<ref name="Vic" /> PD is currently incurable however there are a range of strategies used to manage the disease and delay its effects. Since PD results from a deficiency in dopamine, the most common way to manage the disease is through dopamine replacement or mimicking medication.<ref name="Vic" /> There is no 'best' medication for the disease as each person exhibits different symptoms and responds individually to different medicines. PD is highly associated with anxiety and depression.<ref>Martínez-Martín, P. & Damián, J. (2010). Parkinson disease: Depression and anxiety in Parkinson disease. Nature Reviews Neurology, 6(5), 243-245.</ref> However, exercise can be a fundamental tool in reducing these symptoms.<ref>Martinsen, E. (1990). Benefits of Exercise for the Treatment of Depression. Sports Medicine, 9(6), 380-389.</ref>
+
+Exercise is a common intervention used to assist people diagnosed with PD.<ref name="Vic" /> Even though exercise is not recognised as a cure, it can still be used to delay the progression of the disease and improve quality of life. Some of the benefits of regular exercise for people diagnosed with PD include increased control of gross movement, greater muscular strength and flexibility, improved posture and reduced stress levels.<ref name="Vic" /> According to the Victorian State Government, general recommendations for exercise to improve PD conditions include 15 minutes of light daily exercise with a high number of rest intervals.<ref name="Vic" /> It is essential that any exercise program includes flexibility stretching, an aerobic aspect, as well as strength or resistance based training.<ref name= "NP">National Parkinson Foundation: Believe in Better. (2016). National Parkinson Foundation.  http://www.parkinson.org/understanding-parkinsons/treatment/Exercise</ref> There is a need for further investigation into how much exercise into what load and intensity is most beneficial for PD suffers.<ref name= "NP" />
+
+== Where is the research from?==
+
+The study was conducted by researchers from the Motor Control and Motor Learning Laboratory and School of Physiotherapy at the University of South Australia. The research was published in the Journal of Neurorehabilitation And Neural Repair and is available to download in PDF format.<ref name="ref_name" /> Both researchers have been involved in numerous other studies associated with PD, some of which can be found in the Further Readings.
+
+== What kind of research was this?==
+
+This study would be classified as a Randomized Controlled Trial (RCT) study as the researchers were attempting to understand the effect of aerobic exercise on the early symptoms of PD by assigning subject into random control groups. RCT is the most accurate way to determine the cause-effect relationship as well as the effectiveness of an intervention.<ref>Sibbald B, Roland M. Understanding controlled trials. Why are randomised controlled trials important? BMJ: British Medical Journal. 1998;316(7126):201</ref> The fact that this research uses a physiotherapist to control pre-assessment testing and a fitness instructor to direct the sessions makes recording results and tracking progress very accurate.
+
+== What did the research involve?==
+
+The research involved investigating whether aerobic based exercise has beneficial impacts on early stage Parkinson's Disease. The subjects were 26 healthy individuals, all of whom had been diagnosed with the early stages of Parkinson's Disease. Before the research commenced, a neurologist confirmed the diagnosis of early PD and a Physiotherapist determined whether or not their functional movement was adequate for the study. The group was divided into two groups of 13, one which would undergo attend aerobic classes twice a week for a 12 week period, whilst the other would be the control group and go about their everyday lifestyle. The exercise classes were held in an air-conditioned room and were led by a qualified fitness instructor. The sessions were based heavily around trunk (back extensors and abdominals) strengthening. The program also emphasised movements that increased in speed, mobility and coordination. The aerobic component progressively increased from 20 minutes during the first week to 30 minutes at week 10. To evoke aerobic gains, all subjects began the program with minimum heart-rate targets of 65% of maximum heart-rate calculated in the pre-assessment stress test. Minimum heart-rate targets were then increased by 5% every 4 weeks. At the end of each session, subjects used The Borg Scale of Perceived Exertion, from numbers 6 to 20, to gauge the difficulty of the session. Subjects were encouraged to work at a level that was "somewhat hard" as this has been shown to correspond with an intensity of 60 - 70% of VO2 max. See table 1 for session layouts.
+
+'''Table 1. Exercise program'''.<ref name="ref_name" />
+{| class="wikitable"
+|-
+! Frequency !! 2x/Week
+|-
+| Duration|| 30 min (week 1-10)/ 40 min (week 10-12)
+|-
+| Movements || Rhythmic and continuous swinging of the arms, stride length, hip and knee extension, turning ability, and trunk rotation 
+|-
+| Intensity || 65-85% VO2 max (increasing by 5% at 4-week intervals dependent on individual)
+|-
+| Warm-up || 15 Minutes - Calisthenic exercises emphasising joint range of movement and muscle strength 
+|-
+| Cool-down || 5-10 Minutes - Stretching flexor muscles of joints 
+|}
+
+== What were the basic results?==
+The results of the study prove that positive functional and physiological changes may occur in response to a low frequency, moderate intensity aerobic exercise program with persons with early Parkinson's Disease without detriment to their neurological status. Although the aerobic sessions didn't increase functional ability, the control groups functional ability decreased.<ref name="ref_name" /> These findings strongly support the need for aerobic exercise to be used as a management tool for people who suffer from early PD. Engaging in the exercise session also resulted in an improvement in mood in the subjects which is an important aspect of well-being. This demonstrates how the aerobic program was more than just physically or functionally beneficial. It is important to note that there was an equivalent of 95% attendance rate and those who attended enjoyed the sessions.<ref name="ref_name" /> There were no adverse affects recorded from the program.
+
+== How did the researchers interpret the results?==
+
+The researcher's interpretation was that moderate aerobic activity can be beneficial to slowing the decline related with early Parkinson's Disease. The researcher's also interpreted the results in a way that focused on the mood improvement associated with the exercise program. The findings suggest that mood was shown to correlate with the functional ability of the Parkinson's Disease subjects.<ref name="ref_name" /> The researchers believe that a safe, enjoyable moderate intensity training program would educate those with Parkinson's Disease about their true physical capability, and would therefore increase the intensity of their habitual activity levels.<ref name="ref_name" />
+
+== What conclusions can we take from this research?==
+
+The research concludes that an aerobic based exercise program would greatly benefit those diagnosed with early Parkinson's Disease by improving both their functional and physiological ability's without detriment on their neurological status. Aerobic exercise is a safe strategy in maintaining and even slightly improving early PD symptoms, as well as improving mood and decreasing depression. To take the research to another level, the researchers could have added a pharmacological aspect to investigate the relationship between medication and aerobic exercise.<ref>Palmer, S. (1986). Exercise therapy for Parkinson's disease. Archives Of Physical Medicine And Rehabilitation, 67(10), 741-745</ref>
+
+== What real-world implications does this research have?==
+
+Despite the small sample size (13 people), it was still able to provide statistically significant results that are clinically relevant. As there are many symptoms of PD and every case is individual, it is important that for future studies a larger sample size be used to explore a more comprehensive understanding of how aerobic exercise affects PD. The fact that the subjects were able to increase intensity every 4 weeks of the program is a promising find. It demonstrates that even those diagnosed with PD can still undergo cardiorespiratory adaptations.<ref name="ref_name" /> The progression of this research field would be to determine an adequate range of both intensity and time that brings about the greatest possible adaptations. It is also important that in future research the issue of recovery after aerobic exercise be of interest. Other research has suggested that PD suffers should follow the same exercise as guidelines as non-affected individuals of 4–5 days a week of between 30 and 40 minutes at 70-80% of max heart rate.<ref>Exercise and Physical Therapy | Parkinson's Disease Clinic and Research Center. (2016). Pdcenter.neurology.ucsf.edu. http://pdcenter.neurology.ucsf.edu/patients-guide/exercise-and-physical-therapy#How_often_should_I_exercise_</ref> It would be beneficial for future studies to investigate this claim.
+
+== Further reading ==
+
+Koro.T Physical training in the aged person. Arch Phys Med Rehabilitation. 1996;73;603-608.
+
+Sasco A, Paffenbarger RS, Gendre I, Wing AL. The role of physical exercise in the occurrence of Parkinson's Disease. Arch Neurology. 199;49:360-365.
+
+Bridgewater, K. J., & Sharpe, M. H. (1998). Trunk Muscle Performance in Early Parkinson's Disease. Physical Therapy, 78(6), 566-576.
+
+Sharpe, M., Cermak, S., & Sax, D. (1983). Motor planning in Parkinson patients. Neuropsychologia, 21(5), 455-462.
+
+== References ==
+{{Reflist}}
+
+{{BookCat}}

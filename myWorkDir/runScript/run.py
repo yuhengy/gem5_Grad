@@ -50,10 +50,16 @@ rstCktOpt = ' --checkpoint-restore=1 --maxinsts=50000000 --warmup-insts=1000000'
 #experimentList.append([23, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'stream', ''])
 #experimentList.append([24, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'stream', ''])
 
-## STEP3 docDist/mrsFast
+## STEP3 docDist
+experimentList.append([100, 'RISCV/gem5.opt', runOpt, 'docDist', ''])
+#experimentList.append([101, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'docDist', ''])
+#experimentList.append([102, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'docDist', ''])
+#experimentList.append([103, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'docDist', ''])
+#experimentList.append([104, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'docDist', ''])
 
+## STEP4 mrsFast
 
-## STEP4 SPEC2017
+## STEP5 SPEC2017
 SPECOpt = ' --benchmark=%s --simpt-ckpt=%d \
             --checkpoint-restore=1 --at-instruction \
             --maxinsts=50000000 --warmup-insts=1000000'
