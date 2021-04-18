@@ -14,9 +14,11 @@ runOpt = ' --cpu-type=DerivO3CPU  \
            --caches --l1d_size=32kB --l1i_size=32kB \
            --l1d_assoc=8 --l1i_assoc=8 \
            --l2cache \
-           --l2_size=1MB --l2_assoc=16 \
-           --mem-size=4GB'
 ROIOpt = ' --maxinsts=50000000 --warmup-insts=1000000'
+           --l2_size=512kB --l2_assoc=16 \
+           --l3cache \
+           --l3_size=2MB --l3_assoc=16 --l3_mshrs=%d \
+           --mem-size=4GB' % (2*1024*1024 / 64 + 20)
 
 #rekMOpt = ' --l2reKeyMiss --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 1024*1024 / 64 * 100)
 rekMOpt = ' --l2reKeyMiss --l2_mshrs=%d --l2_max_evict_per_epoch=%d' % (1024*1024 / 64 + 20, 2)

@@ -57,6 +57,7 @@ def config_cache(options, system):
         ExternalCache = ExternalCacheFactory(options.external_memory_system)
 
     if options.cpu_type == "O3_ARM_v7a_3":
+        assert(False and "Not Support")
         try:
             import cores.arm.O3_ARM_v7a as core
         except:
@@ -68,6 +69,7 @@ def config_cache(options, system):
             core.O3_ARM_v7aL2, \
             core.O3_ARM_v7aWalkCache
     elif options.cpu_type == "HPI":
+        assert(False and "Not Support")
         try:
             import cores.arm.HPI as core
         except:
@@ -77,8 +79,8 @@ def config_cache(options, system):
         dcache_class, icache_class, l2_cache_class, walk_cache_class = \
             core.HPI_DCache, core.HPI_ICache, core.HPI_L2, core.HPI_WalkCache
     else:
-        dcache_class, icache_class, l2_cache_class, walk_cache_class = \
-            L1_DCache, L1_ICache, L2Cache, None
+        dcache_class, icache_class, l2_cache_class, l3_cache_class, walk_cache_class = \
+            L1_DCache, L1_ICache, L2Cache, L3Cache, None
 
         if buildEnv['TARGET_ISA'] in ['x86', 'riscv']:
             walk_cache_class = PageTableWalkerCache
@@ -93,40 +95,32 @@ def config_cache(options, system):
     if options.l2cache and options.elastic_trace_en:
         fatal("When elastic trace is enabled, do not configure L2 caches.")
 
-    if options.l2cache:
-        # Provide a clock for the L2 and the L1-to-L2 bus here as they
-        # are not connected using addTwoLevelCacheHierarchy. Use the
-        # same clock as the CPUs.
-        if options.l2reKeyHit:
-            system.l2 = rekeyHitL2Cache(clk_domain=system.cpu_clk_domain,
-                                        size=options.l2_size,
-                                        assoc=options.l2_assoc,
-                                        max_evict_per_epoch=options.l2_max_evict_per_epoch,
-                                        mshrs=options.l2_mshrs)
-        # same clock as the CPUs.
-        elif options.l2reKeyMiss:
-            system.l2 = rekeyMissL2Cache(clk_domain=system.cpu_clk_domain,
-                                         size=options.l2_size,
-                                         assoc=options.l2_assoc,
-                                         max_evict_per_epoch=options.l2_max_evict_per_epoch,
-                                         mshrs=options.l2_mshrs)
-            system.l2.tags.indexing_policy = SkewedAssociative()
+    if options.l3cache:
+        if options.l3reKeyHit:
+            system.l3 = rekeyHitL3Cache(clk_domain=system.cpu_clk_domain,
+                                        size=options.l3_size,
+                                        assoc=options.l3_assoc,
+                                        max_evict_per_epoch=options.l3_max_evict_per_epoch,
+                                        mshrs=options.l3_mshrs)
+        elif options.l3reKeyMiss:
+            system.l3 = rekeyMissL3Cache(clk_domain=system.cpu_clk_domain,
+                                         size=options.l3_size,
+                                         assoc=options.l3_assoc,
+                                         max_evict_per_epoch=options.l3_max_evict_per_epoch,
+                                         mshrs=options.l3_mshrs)
         else:
-            system.l2 = l2_cache_class(clk_domain=system.cpu_clk_domain,
-                                       size=options.l2_size,
-                                       assoc=options.l2_assoc)
+            system.l3 = l3_cache_class(clk_domain=system.cpu_clk_domain,
+                                       size=options.l3_size,
+                                       assoc=options.l3_assoc,
+                                       mshrs=options.l3_mshrs)
+        system.l3.tags.indexing_policy = SkewedAssociative()
 
-        system.tol2bus = L2XBar(clk_domain = system.cpu_clk_domain)
-        system.l2.cpu_side = system.tol2bus.master
-        system.l2.mem_side = system.membus.slave
-        if options.l2_hwp_type:
-            hwpClass = ObjectList.hwp_list.get(options.l2_hwp_type)
-            if system.l2.prefetcher != "Null":
-                print("Warning: l2-hwp-type is set (", hwpClass, "), but",
-                      "the current l2 has a default Hardware Prefetcher",
-                      "of type", type(system.l2.prefetcher), ", using the",
-                      "specified by the flag option.")
-            system.l2.prefetcher = hwpClass()
+        system.tol3bus = L3XBar(clk_domain = system.cpu_clk_domain)
+        system.l3.cpu_side = system.tol3bus.master
+        system.l3.mem_side = system.membus.slave
+        if options.memchecker:
+            assert(False and "Not Support")
+
 
     if options.memchecker:
         system.memchecker = MemChecker()
@@ -209,12 +203,22 @@ def config_cache(options, system):
                         ExternalCache("cpu%d.dcache" % i))
 
         system.cpu[i].createInterruptController()
+
         if options.l2cache:
-            system.cpu[i].connectAllPorts(system.tol2bus, system.membus)
-        elif options.external_memory_system:
-            system.cpu[i].connectUncachedPorts(system.membus)
+            system.cpu[i].l2=l2_cache_class(clk_domain=system.cpu_clk_domain,
+                                            size=options.l2_size,
+                                            assoc=options.l2_assoc)
+
+            system.cpu[i].tol2bus = L2XBar(clk_domain = system.cpu_clk_domain)
+            system.cpu[i].l2.cpu_side = system.cpu[i].tol2bus.master
+            system.cpu[i].l2.mem_side = system.tol3bus.slave
+            if options.l2_hwp_type:
+                assert(False and "Not Support")
+
+        if options.l3cache:
+            system.cpu[i].connectAllPorts(system.cpu[i].tol2bus, system.membus)
         else:
-            system.cpu[i].connectAllPorts(system.membus)
+            assert(False and "Not Support")
 
     return system
 
