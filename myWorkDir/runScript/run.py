@@ -2,8 +2,6 @@
 import os
 import time
 
-GEM5_DIR = os.getcwd()
-
 #-------------------- 1/3 Run Config Begin --------------------
 RUN_MODE = "singleProc" # singleProc, multiProc
 
@@ -26,6 +24,8 @@ runOpt = ' --cpu-type=DerivO3CPU  \
 rekHOpt = ' --l3reKeyHit --l3_max_evict_per_epoch=%d' % (2)
 #rekMOpt = ' --l3reKeyMiss --l3_max_evict_per_epoch=%d' % (2*1024*1024 / 64 * 100)
 rekMOpt = ' --l3reKeyMiss --l3_max_evict_per_epoch=%d' % (2)
+#rekMAOpt = ' --l3reKeyMissAddr --l3_max_evict_per_epoch=%d' % (2*1024*1024 / 64 * 100)
+rekMAOpt = ' --l3reKeyMissAddr --l3_max_evict_per_epoch=%d' % (2)
 #-------------------- 2/3 Run Config End --------------------
 
 
@@ -48,6 +48,7 @@ rstCktOpt = ' --checkpoint-restore=1 --maxinsts=50000000 --warmup-insts=1000000'
 #experimentList.append([21, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'stream', ''])
 #experimentList.append([22, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'stream', ''])
 #experimentList.append([23, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'stream', ''])
+#experimentList.append([24, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'stream', ''])
 
 ## STEP3 docDist/mrsFast
 
@@ -64,6 +65,7 @@ for i, name, simptID in SPECList:
   experimentList.append([i+1000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID), 'SPEC2017', ''])
   experimentList.append([i+2000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekHOpt, 'SPEC2017', ''])
   experimentList.append([i+3000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekMOpt, 'SPEC2017', ''])
+  experimentList.append([i+4000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekMAOpt, 'SPEC2017', ''])
 
 #-------------------- 3/3 Run Config Begin --------------------
 
@@ -108,16 +110,21 @@ def runSimu(index_binary_config_app_arg):
 
 
 if __name__ == "__main__":
+  GEM5_DIR = os.getcwd()
 
   # STEP0 compile
   for index, binary, config, app, _ in experimentList:
+    os.makedirs(GEM5_DIR + '/myWorkDir/result/' + str(index) + '-' + app, exist_ok=True)
+    
+    if app == 'SPEC2017':
+      continue
+
     if binary[0] == "R":
       os.system('ISA=riscv CC=riscv64-linux-gnu-gcc make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
     elif binary[0] == "X":
       os.system('ISA=X86 CC=x86_64-linux-gnu-gcc make -C '+GEM5_DIR+'/myWorkDir/app/'+app)
     else:
       assert(False)
-    os.makedirs(GEM5_DIR + '/myWorkDir/result/' + str(index) + '-' + app, exist_ok=True)
 
   # STEP1 init the cluster or multiProcess
   if not RUN_MODE == "singleProc":

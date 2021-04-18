@@ -18,43 +18,19 @@ void
 RekeyMissCache::evictBlock(CacheBlk *blk, PacketList &writebacks)
 {
 
-    //static uint64_t numEvict = 0;
-    //numEvict++;
     // STEP1 log access history
-    static std::map<Addr, uint32_t> evictHistory;
-    static uint32_t maxNumEvict = 0;
-    // STEP1.1 get addr
-    Addr blkAddr = tags->regenerateBlkAddr(blk);
-    auto iter = evictHistory.find(blkAddr);
-    // STEP1.2 increment the history
-    if (iter == evictHistory.end()) {
-        evictHistory[blkAddr] = 1;
-    }
-    else {
-        (iter->second)++;
-        if ((iter->second) > maxNumEvict) {
-            maxNumEvict = (iter->second);
-        }
-    }
-    // STEP1.3 shrink the history if too large
-    if (evictHistory.size() == MAX_ENTRY_IN_EVICTHISTORY) {
-        for (auto iter = evictHistory.begin();
-                  iter != evictHistory.end(); iter++) {
-            if ((iter->second) < (maxNumEvict/10 + 1)) {
-                evictHistory.erase(iter);
-            }
-        }
-    }
-    // STEP1.4 for debug
+    static uint64_t numEvict = 0;
+    numEvict++;
+
+    // STEP2 for debug
     stats.replacementsDefineEpoch++;
 
-    // STEP2 flush if necessary
+    // STEP3 flush if necessary
     // NOTE: maxEvictPerEpoch==2 means 
     //       the second time you want to evict one addr,
     //       flush will be triggered
     // NOTE: maxEvictPerEpoch is at least 2
-    //if (numEvict == maxEvictPerEpoch) {
-    if (maxNumEvict == maxEvictPerEpoch) {
+    if (numEvict == maxEvictPerEpoch) {
         for (CacheBlk& blk_anyone :
             static_cast<BaseSetAssoc*>(tags)->getBlks()) {
             if (blk_anyone.isValid()) {
@@ -70,9 +46,7 @@ RekeyMissCache::evictBlock(CacheBlk *blk, PacketList &writebacks)
             }
         }
         stats.numEpoch++;
-        //numEvict = 0;
-        evictHistory.clear();
-        maxNumEvict = 0;
+        numEvict = 0;
     }
 
     else {

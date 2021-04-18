@@ -126,6 +126,7 @@ def addNoISAOptions(parser):
     parser.add_option("--l3cache", action="store_true")
     parser.add_option("--l3reKeyHit", action="store_true")
     parser.add_option("--l3reKeyMiss", action="store_true")
+    parser.add_option("--l3reKeyMissAddr", action="store_true")
     parser.add_option("--l3_max_evict_per_epoch", type="int", default=16*1024*1024/64*100)
     parser.add_option("--l3_mshrs", type="int", default=16*1024*1024/16 + 20)
     parser.add_option("--num-dirs", type="int", default=1)

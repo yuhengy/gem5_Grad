@@ -83,6 +83,13 @@ class L3Cache(Cache):
     tgts_per_mshr = 12
     write_buffers = 8
 
+class rekeyMissAddrL3Cache(RekeyMissAddrCache):
+    assoc = 16
+    tag_latency = 42
+    data_latency = 42
+    response_latency = 8
+    tgts_per_mshr = 12
+
 class rekeyMissL3Cache(RekeyMissCache):
     assoc = 16
     tag_latency = 42

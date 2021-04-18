@@ -108,6 +108,12 @@ def config_cache(options, system):
                                          assoc=options.l3_assoc,
                                          max_evict_per_epoch=options.l3_max_evict_per_epoch,
                                          mshrs=options.l3_mshrs)
+        elif options.l3reKeyMissAddr:
+            system.l3 = rekeyMissAddrL3Cache(clk_domain=system.cpu_clk_domain,
+                                             size=options.l3_size,
+                                             assoc=options.l3_assoc,
+                                             max_evict_per_epoch=options.l3_max_evict_per_epoch,
+                                             mshrs=options.l3_mshrs)
         else:
             system.l3 = l3_cache_class(clk_domain=system.cpu_clk_domain,
                                        size=options.l3_size,
