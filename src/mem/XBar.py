@@ -156,7 +156,7 @@ class L2XBar(CoherentXBar):
     # Use a snoop-filter by default, and set the latency to zero as
     # the lookup is assumed to overlap with the frontend latency of
     # the crossbar
-    snoop_filter = SnoopFilter(lookup_latency = 0)
+    #snoop_filter = SnoopFilter(lookup_latency = 0)
 
     # This specialisation of the coherent crossbar is to be considered
     # the point of unification, it connects the dcache and the icache
@@ -177,7 +177,7 @@ class L3XBar(CoherentXBar):
     # Use a snoop-filter by default, and set the latency to zero as
     # the lookup is assumed to overlap with the frontend latency of
     # the crossbar
-    snoop_filter = SnoopFilter(lookup_latency = 0)
+    #snoop_filter = SnoopFilter(lookup_latency = 0)
 
     # This specialisation of the coherent crossbar is to be considered
     # the point of unification, it connects the dcache and the icache

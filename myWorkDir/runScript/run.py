@@ -10,27 +10,29 @@ COMPILE_APP = True
 #-------------------- 1/3 Run Config End --------------------
 
 
-#-------------------- 2/3 Run Config Begin --------------------
+#-------------------- 2/4 Base CPU Config Begin --------------------
 runOpt = ' --cpu-type=DerivO3CPU  \
            --num-cpus=1 \
            --caches --l1d_size=32kB --l1i_size=32kB \
            --l1d_assoc=8 --l1i_assoc=8 \
            --l2cache \
-           --l2_size=512kB --l2_assoc=16 \
+           --l2_size=256kB --l2_assoc=16 \
            --l3cache \
-           --l3_size=2MB --l3_assoc=16 --l3_mshrs=%d \
-           --mem-size=4GB' % (2*1024*1024 / 64 + 20)
-
-#rekHOpt = ' --l3reKeyHit --l3_max_evict_per_epoch=%d' % (2*1024*1024 / 64 * 100)
-rekHOpt = ' --l3reKeyHit --l3_max_evict_per_epoch=%d' % (2)
-#rekMOpt = ' --l3reKeyMiss --l3_max_evict_per_epoch=%d' % (2*1024*1024 / 64 * 100)
-rekMOpt = ' --l3reKeyMiss --l3_max_evict_per_epoch=%d' % (2)
-#rekMAOpt = ' --l3reKeyMissAddr --l3_max_evict_per_epoch=%d' % (2*1024*1024 / 64 * 100)
-rekMAOpt = ' --l3reKeyMissAddr --l3_max_evict_per_epoch=%d' % (2)
-#-------------------- 2/3 Run Config End --------------------
+           --l3_size=1MB --l3_assoc=16 --l3_mshrs=%d \
+           --mem-size=4GB' % (1024*1024 / 64 + 20)
+#-------------------- 2/4 Base CPU Config End --------------------
 
 
-#-------------------- 3/3 Run Config Begin --------------------
+#-------------------- 3/4 Security Config Begin --------------------
+rekHOptBase = ' --l3reKeyHit --l3_max_evict_per_epoch=%d'
+rekMOptBase = ' --l3reKeyMiss --l3_max_evict_per_epoch=%d'
+rekMAOptBase = ' --l3reKeyMissAddr --l3_max_evict_per_epoch=%d'
+
+secPara = [[10000, 2], [20000, 1024*1024 / 64 *1], [30000, 1024*1024 / 64 *10], [40000, 1024*1024 / 64 *20], [50000, 1024*1024 / 64 *40], [60000, 1024*1024 / 64 *100]]
+#-------------------- 3/4 Security Config End --------------------
+
+
+#-------------------- 4/4 experiment Config Begin --------------------
 experimentList = []
 
 ## SEPT1 hello
@@ -51,36 +53,41 @@ rstCktOpt = ' --checkpoint-restore=1 --maxinsts=50000000 --warmup-insts=1000000'
 #experimentList.append([23, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'stream', ''])
 #experimentList.append([24, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'stream', ''])
 
-## STEP3 docDist
-#experimentList.append([100, 'RISCV/gem5.opt', runOpt, 'docDist', ''])
-#experimentList.append([101, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'docDist', ''])
-#experimentList.append([102, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'docDist', ''])
-#experimentList.append([103, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'docDist', ''])
-#experimentList.append([104, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'docDist', ''])
 
-## STEP4 mrsFast
-arg = '--search myWorkDir/app/mrsFast/dataset/chr3_50K.fa --seq myWorkDir/app/mrsFast/dataset/chr3_50K_2000.fq'
-experimentList.append([200, 'RISCV/gem5.opt', runOpt, 'mrsFast', arg])
-#experimentList.append([201, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'mrsFast', arg])
-#experimentList.append([202, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'mrsFast', arg])
-#experimentList.append([203, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'mrsFast', arg])
-#experimentList.append([204, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'mrsFast', arg])
+for baseI, size in secPara:
+  rekHOpt = rekHOptBase % size
+  rekMOpt = rekMOptBase % size
+  rekMAOpt = rekMAOptBase % size
 
-## STEP5 SPEC2017
-SPECOpt = ' --benchmark=%s --simpt-ckpt=%d \
-            --checkpoint-restore=1 --at-instruction \
-            --maxinsts=50000000 --warmup-insts=1000000'
-from SPECList import SPECList
-#SPECList = []
-SPECList = [[0, "blender_r", 0]]
+  ## STEP3 docDist
+  #experimentList.append([100, 'RISCV/gem5.opt', runOpt, 'docDist', ''])
+  #experimentList.append([baseI+101, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'docDist', ''])
+  #experimentList.append([baseI+102, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'docDist', ''])
+  #experimentList.append([baseI+103, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'docDist', ''])
+  #experimentList.append([baseI+104, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'docDist', ''])
 
-for i, name, simptID in SPECList:
-  experimentList.append([i+1000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID), 'SPEC2017', ''])
-  experimentList.append([i+2000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekHOpt, 'SPEC2017', ''])
-  experimentList.append([i+3000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekMOpt, 'SPEC2017', ''])
-  experimentList.append([i+4000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekMAOpt, 'SPEC2017', ''])
+  ## STEP4 mrsFast
+  arg = '--search myWorkDir/app/mrsFast/dataset/chr3_50K.fa --seq myWorkDir/app/mrsFast/dataset/chr3_50K_2000.fq'
+  #experimentList.append([200, 'RISCV/gem5.opt', runOpt, 'mrsFast', arg])
+  #experimentList.append([baseI+201, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'mrsFast', arg])
+  #experimentList.append([baseI+202, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'mrsFast', arg])
+  #experimentList.append([baseI+203, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'mrsFast', arg])
+  #experimentList.append([baseI+204, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'mrsFast', arg])
 
-#-------------------- 3/3 Run Config Begin --------------------
+  ## STEP5 SPEC2017
+  SPECOpt = ' --benchmark=%s --simpt-ckpt=%d \
+              --checkpoint-restore=1 --at-instruction \
+              --maxinsts=50000000 --warmup-insts=1000000'
+  from SPECList import SPECList
+  #SPECList = []
+  #SPECList = [[0, "blender_r", 0]]
+
+  for i, name, simptID in SPECList:
+    experimentList.append([baseI+i+1000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID), 'SPEC2017', ''])
+    experimentList.append([baseI+i+2000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekHOpt, 'SPEC2017', ''])
+    experimentList.append([baseI+i+3000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekMOpt, 'SPEC2017', ''])
+    experimentList.append([baseI+i+4000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekMAOpt, 'SPEC2017', ''])
+#-------------------- 4/4 Run Config Begin --------------------
 
 
 def initClient(RUN_MODE):
@@ -123,7 +130,7 @@ def runSimu(index_binary_config_app_arg):
     runShell
 
   if REDIRECT_TERMINAL_OUTPUT:
-    command += ' > ' + GEM5_DIR + '/myWorkDir/result/' + str(index_binary_config_app_arg[0]) + '-' + index_binary_config_app_arg[3] + '/terminal.log'
+    command += ' > ' + GEM5_DIR + '/myWorkDir/result/' + str(index_binary_config_app_arg[0]) + '-' + index_binary_config_app_arg[3] + '/terminal.log 2>&1'
   
   print("command: ", command)
   os.system(command)
