@@ -1,1 +1,1 @@
-papp_cloud rsync super:ProjectGraduation/gem5/myWorkDir/result myWorkDir
+papp_cloud rsync super:ProjectGraduation/gem5_Grad/myWorkDir/result myWorkDir

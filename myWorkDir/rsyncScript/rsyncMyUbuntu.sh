@@ -1,1 +1,1 @@
-rsync -av --exclude={gem5/.git,gem5/build,gem5/myWorkDir/app/SPEC2017} ../gem5 myUbuntu:Documents/ProjectGraduation/
+rsync -av --exclude={gem5_Grad/.git,gem5_Grad/build,gem5_Grad/myWorkDir/app/SPEC2017} ../gem5_Grad myUbuntu:Documents/ProjectGraduation/

@@ -41,17 +41,13 @@ rstCktOpt = ' --checkpoint-restore=1 --maxinsts=50000000 --warmup-insts=1000000'
 #experimentList.append([1, 'X86/gem5.opt', runOpt + rstCktOpt, 'hello', ''])
 #experimentList.append([2, 'X86/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'hello', ''])
 #experimentList.append([3, 'X86/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'hello', ''])
-#experimentList.append([10, 'RISCV/gem5.opt', runOpt, 'hello', ''])
-#experimentList.append([11, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'hello', ''])
-#experimentList.append([12, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'hello', ''])
-#experimentList.append([13, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'hello', ''])
 
 ## STEP2 stream
-#experimentList.append([20, 'RISCV/gem5.opt', runOpt, 'stream', ''])
-#experimentList.append([21, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'stream', ''])
-#experimentList.append([22, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'stream', ''])
-#experimentList.append([23, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'stream', ''])
-#experimentList.append([24, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'stream', ''])
+#experimentList.append([20, 'X86/gem5.opt', runOpt, 'stream', ''])
+#experimentList.append([21, 'X86/gem5.opt', runOpt + rstCktOpt, 'stream', ''])
+#experimentList.append([22, 'X86/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'stream', ''])
+#experimentList.append([23, 'X86/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'stream', ''])
+#experimentList.append([24, 'X86/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'stream', ''])
 
 
 for baseI, size in secPara:
@@ -60,19 +56,19 @@ for baseI, size in secPara:
   rekMAOpt = rekMAOptBase % size
 
   ## STEP3 docDist
-  #experimentList.append([100, 'RISCV/gem5.opt', runOpt, 'docDist', ''])
-  #experimentList.append([baseI+101, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'docDist', ''])
-  #experimentList.append([baseI+102, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'docDist', ''])
-  #experimentList.append([baseI+103, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'docDist', ''])
-  #experimentList.append([baseI+104, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'docDist', ''])
+  #experimentList.append([100, 'X86/gem5.opt', runOpt, 'docDist', ''])
+  #experimentList.append([baseI+101, 'X86/gem5.opt', runOpt + rstCktOpt, 'docDist', ''])
+  #experimentList.append([baseI+102, 'X86/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'docDist', ''])
+  #experimentList.append([baseI+103, 'X86/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'docDist', ''])
+  #experimentList.append([baseI+104, 'X86/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'docDist', ''])
 
   ## STEP4 mrsFast
   arg = '--search myWorkDir/app/mrsFast/dataset/chr3_50K.fa --seq myWorkDir/app/mrsFast/dataset/chr3_50K_2000.fq'
-  #experimentList.append([200, 'RISCV/gem5.opt', runOpt, 'mrsFast', arg])
-  #experimentList.append([baseI+201, 'RISCV/gem5.opt', runOpt + rstCktOpt, 'mrsFast', arg])
-  #experimentList.append([baseI+202, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'mrsFast', arg])
-  #experimentList.append([baseI+203, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'mrsFast', arg])
-  #experimentList.append([baseI+204, 'RISCV/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'mrsFast', arg])
+  #experimentList.append([200, 'X86/gem5.opt', runOpt, 'mrsFast', arg])
+  #experimentList.append([baseI+201, 'X86/gem5.opt', runOpt + rstCktOpt, 'mrsFast', arg])
+  #experimentList.append([baseI+202, 'X86/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'mrsFast', arg])
+  #experimentList.append([baseI+203, 'X86/gem5.opt', runOpt + rstCktOpt + rekMOpt, 'mrsFast', arg])
+  #experimentList.append([baseI+204, 'X86/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'mrsFast', arg])
 
   ## STEP5 SPEC2017
   SPECOpt = ' --benchmark=%s --simpt-ckpt=%d \
