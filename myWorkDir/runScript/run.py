@@ -2,24 +2,25 @@
 import os
 import time
 
-#-------------------- 1/3 Run Config Begin --------------------
-RUN_MODE = "singleProc" # singleProc, multiProc
+#-------------------- 1/4 Run Config Begin --------------------
+RUN_MODE = "slurmCluster" # singleProc, multiProc, slurmCluster
 
-REDIRECT_TERMINAL_OUTPUT = False
-COMPILE_APP = True
-#-------------------- 1/3 Run Config End --------------------
+REDIRECT_TERMINAL_OUTPUT = True
+COMPILE_APP = False
+#-------------------- 1/4 Run Config End --------------------
 
 
 #-------------------- 2/4 Base CPU Config Begin --------------------
 runOpt = ' --cpu-type=DerivO3CPU  \
            --num-cpus=1 \
-           --caches --l1d_size=32kB --l1i_size=32kB \
-           --l1d_assoc=8 --l1i_assoc=8 \
+           --cacheline_size=256 \
+           --caches --l1d_size=16kB --l1i_size=16kB \
+           --l1d_assoc=4 --l1i_assoc=4 \
            --l2cache \
-           --l2_size=256kB --l2_assoc=16 \
+           --l2_size=128kB --l2_assoc=8 \
            --l3cache \
-           --l3_size=1MB --l3_assoc=16 --l3_mshrs=%d \
-           --mem-size=4GB' % (1024*1024 / 64 + 20)
+           --l3_size=4MB --l3_assoc=16 --l3_mshrs=%d \
+           --mem-size=4GB' % (4*1024*1024 / 256 + 20)
 #-------------------- 2/4 Base CPU Config End --------------------
 
 
@@ -28,7 +29,7 @@ rekHOptBase = ' --l3reKeyHit --l3_max_evict_per_epoch=%d'
 rekMOptBase = ' --l3reKeyMiss --l3_max_evict_per_epoch=%d'
 rekMAOptBase = ' --l3reKeyMissAddr --l3_max_evict_per_epoch=%d'
 
-secPara = [[10000, 2], [20000, 1024*1024 / 64 *1], [30000, 1024*1024 / 64 *10], [40000, 1024*1024 / 64 *20], [50000, 1024*1024 / 64 *40], [60000, 1024*1024 / 64 *100]]
+secPara = [[10000, 2], [20000, 4*1024*1024 / 256 *1], [30000, 4*1024*1024 / 256 *2], [40000, 4*1024*1024 / 256 *3], [50000, 4*1024*1024 / 256 *4], [60000, 4*1024*1024 / 256 *6], [70000, 4*1024*1024 / 256 *8], [80000, 4*1024*1024 / 256 *12], [90000, 4*1024*1024 / 256 *20], [100000, 4*1024*1024 / 256 *40], [110000, 4*1024*1024 / 256 *100]]
 #-------------------- 3/4 Security Config End --------------------
 
 
@@ -36,7 +37,7 @@ secPara = [[10000, 2], [20000, 1024*1024 / 64 *1], [30000, 1024*1024 / 64 *10], 
 experimentList = []
 
 ## SEPT1 hello
-rstCktOpt = ' --checkpoint-restore=1 --maxinsts=50000000 --warmup-insts=1000000'
+#rstCktOpt = ' --checkpoint-restore=1 --maxinsts=50000000 --warmup-insts=1000000'
 #experimentList.append([0, 'X86/gem5.opt', runOpt, 'hello', ''])
 #experimentList.append([1, 'X86/gem5.opt', runOpt + rstCktOpt, 'hello', ''])
 #experimentList.append([2, 'X86/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'hello', ''])
@@ -53,7 +54,7 @@ rstCktOpt = ' --checkpoint-restore=1 --maxinsts=50000000 --warmup-insts=1000000'
 for baseI, size in secPara:
   rekHOpt = rekHOptBase % size
   rekMOpt = rekMOptBase % size
-  rekMAOpt = rekMAOptBase % size
+  rekMAOpt = rekMAOptBase % max(2, int(size/4096))
 
   ## STEP3 docDist
   #experimentList.append([100, 'X86/gem5.opt', runOpt, 'docDist', ''])
@@ -63,7 +64,7 @@ for baseI, size in secPara:
   #experimentList.append([baseI+104, 'X86/gem5.opt', runOpt + rstCktOpt + rekMAOpt, 'docDist', ''])
 
   ## STEP4 mrsFast
-  arg = '--search myWorkDir/app/mrsFast/dataset/chr3_50K.fa --seq myWorkDir/app/mrsFast/dataset/chr3_50K_2000.fq'
+  #arg = '--search myWorkDir/app/mrsFast/dataset/chr3_50K.fa --seq myWorkDir/app/mrsFast/dataset/chr3_50K_2000.fq'
   #experimentList.append([200, 'X86/gem5.opt', runOpt, 'mrsFast', arg])
   #experimentList.append([baseI+201, 'X86/gem5.opt', runOpt + rstCktOpt, 'mrsFast', arg])
   #experimentList.append([baseI+202, 'X86/gem5.opt', runOpt + rstCktOpt + rekHOpt, 'mrsFast', arg])
@@ -73,7 +74,7 @@ for baseI, size in secPara:
   ## STEP5 SPEC2017
   SPECOpt = ' --benchmark=%s --simpt-ckpt=%d \
               --checkpoint-restore=1 --at-instruction \
-              --maxinsts=50000000 --warmup-insts=1000000'
+              --maxinsts=100000000 --warmup-insts=20000000'
   from SPECList import SPECList
   #SPECList = []
   #SPECList = [[0, "blender_r", 0]]
@@ -83,6 +84,8 @@ for baseI, size in secPara:
     experimentList.append([baseI+i+2000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekHOpt, 'SPEC2017', ''])
     experimentList.append([baseI+i+3000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekMOpt, 'SPEC2017', ''])
     experimentList.append([baseI+i+4000, 'X86/gem5.opt', runOpt + SPECOpt%(name,simptID) + rekMAOpt, 'SPEC2017', ''])
+
+print("Number of experiments: ", len(experimentList))
 #-------------------- 4/4 Run Config Begin --------------------
 
 

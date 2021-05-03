@@ -39,7 +39,7 @@ SPEC_weight = [[0.0275665, 0.0741232, 0.020343, 0.12872, 0.104089, 0.387335, 0.2
 
 
 # NOTE: These are fail SPEC: bwaves_r, cactuBSSN_r, cam4_r, gcc_r, mcf_r, omnetpp_r, perlbench_r, roms_r, xalancbmk_r
-SPEC_failName = ["bwaves_r", "cam4_r", "gcc_r", "omnetpp_r", "perlbench_r", "povray_r", "roms_r", "xalancbmk_r"]
+SPEC_failName = ["bwaves_r", "cam4_r", "gcc_r", "omnetpp_r", "perlbench_r", "povray_r", "roms_r", "xalancbmk_r", "deepsjeng_r", "exchange2_r", "leela_r", "namd_r", "x264_r"]
 SPEC_failIndex = sorted([SPEC_name.index(failName) for failName in SPEC_failName], reverse = True)
 for failIndex in SPEC_failIndex:
   del(SPEC_name[failIndex])
